@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rainforest and Nature | Experience Pahang</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Jost', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Jost', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .tracking-widest-extra { letter-spacing: 0.25em; }
+        .tracking-mega { letter-spacing: 0.4em; }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in-up {
+            opacity: 0;
+            animation: fadeInUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-700 { animation-delay: 0.7s; }
+
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 1px;
+            bottom: -4px; left: 50%; background-color: #ffffff;
+            transition: all 0.3s ease; transform: translateX(-50%);
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        .cubic-bezier-panel { transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1); }
+        
+        .panel-link-underline { position: relative; display: inline-block; width: fit-content; }
+        .panel-link-underline::after {
+            content: ''; position: absolute; width: 0; height: 1px;
+            bottom: -4px; left: 0; background-color: currentColor; transition: all 0.4s ease;
+        }
+        .panel-link-underline:hover::after { width: 100%; }
+
+        .scroll-reveal {
+            opacity: 0; transform: translateY(40px);
+            transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .scroll-reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+        .img-zoom-hover {
+            transition: transform 2s ease-out;
+        }
+        .group:hover .img-zoom-hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-white selection:text-black">
+
+    <header class="absolute top-0 left-0 w-full z-50 px-6 py-8 md:px-12 md:py-10 flex justify-between items-center mix-blend-difference text-white">
+        <!-- Desktop Left Navigation -->
+        <nav class="hidden lg:flex items-center space-x-10 text-[13px] uppercase tracking-widest-extra font-medium z-10">
+            <button id="btn-wander" class="nav-link text-white/80 hover:text-white transition-colors duration-300 focus:outline-none uppercase tracking-widest-extra">Wander</button>
+            <button id="btn-unwind" class="nav-link text-white/80 hover:text-white transition-colors duration-300 focus:outline-none uppercase tracking-widest-extra">Unwind</button>
+        </nav>
+
+        <!-- Center Logo -->
+        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center text-center cursor-pointer hover:opacity-80 transition-opacity duration-300 z-10">
+            <a href="home.html" class="flex flex-col items-center leading-none">
+                <span class="text-2xl md:text-3xl font-serif tracking-widest text-white">EXPERIENCE</span>
+                <span class="text-[9px] md:text-[11px] tracking-mega font-light mt-1 text-white/90 pl-[0.4em]">PAHANG</span>
+            </a>
+        </div>
+
+        <!-- Desktop Right Navigation & Actions -->
+        <div class="hidden lg:flex items-center justify-end space-x-10 text-[13px] uppercase tracking-widest-extra font-medium z-10">
+            <button id="btn-origin" class="nav-link text-white/80 hover:text-white transition-colors duration-300 focus:outline-none uppercase tracking-widest-extra">Origin</button>
+            <button id="btn-plan" class="nav-link text-white/80 hover:text-white transition-colors duration-300 focus:outline-none uppercase tracking-widest-extra">Plan</button>
+        </div>
+
+        <!-- Mobile Hamburger Menu Button -->
+        <div class="lg:hidden ml-auto z-10">
+            <button id="mobile-menu-btn" aria-label="Toggle Mobile Menu" class="flex flex-col justify-center items-center w-8 h-8 space-y-1.5 focus:outline-none relative z-50">
+                <span class="block w-6 h-[1px] bg-white transition-transform duration-300 origin-center"></span>
+                <span class="block w-6 h-[1px] bg-white transition-transform duration-300 origin-center"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-[#0B1220] z-[45] flex flex-col justify-center items-center opacity-0 pointer-events-none transition-opacity duration-500 lg:hidden">
+        <nav class="flex flex-col items-center space-y-10 text-center">
+            <button class="mobile-nav-btn text-2xl font-serif text-white tracking-widest" data-target="wander">Wander</button>
+            <button class="mobile-nav-btn text-2xl font-serif text-white tracking-widest" data-target="unwind">Unwind</button>
+            <button class="mobile-nav-btn text-2xl font-serif text-white tracking-widest" data-target="origin">Origin</button>
+            <button class="mobile-nav-btn text-2xl font-serif text-white tracking-widest" data-target="plan">Plan</button>
+        </nav>
+    </div>
+
+    <!-- Section 1 — Hero -->
+    <main class="relative h-screen w-full overflow-hidden bg-gray-900">
+        <!-- Background Video -->
+        <div class="absolute inset-0 z-0">
+            <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-80">
+                <source src="visual/v.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        
+        <div class="absolute inset-0 bg-gradient-to-b from-black/35 via-black/30 to-black/35"></div>
+        <div class="absolute inset-0 bg-black/25 mix-blend-overlay"></div>
+
+        <div class="relative z-10 h-full flex flex-col justify-center items-center text-center px-6 pt-20 max-w-4xl mx-auto">
+            <p class="text-[10px] md:text-[11px] uppercase tracking-mega mb-6 text-white/70 font-medium animate-fade-in-up delay-100">
+                Rainforest & Nature
+            </p>
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-[6.5rem] leading-[1.05] font-serif text-white font-normal drop-shadow-2xl animate-fade-in-up delay-300">
+                Where Pahang <br class="hidden sm:block">
+                <span class="italic font-light text-white/90">Runs Wild</span>
+            </h1>
+        </div>
+    </main>
+
+    <!-- Section 2 — Intro -->
+    <section class="relative w-full bg-white pt-32 md:pt-48 pb-16 md:pb-24 px-6 md:px-12 z-20 overflow-hidden">
+        <div class="max-w-[1400px] mx-auto flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+            <div class="w-full lg:w-5/12 flex flex-col items-start scroll-reveal">
+                <div class="w-[1px] h-16 bg-gradient-to-b from-black/0 via-black/20 to-black/0 mb-10"></div>
+                <h2 class="text-4xl sm:text-5xl lg:text-[4rem] font-serif text-black mb-6 leading-[1.1] tracking-wide">The Wild Heart <br> of Pahang</h2>
+                <p class="text-xl md:text-2xl font-serif italic text-black/50 mb-8 font-light">Ancient. Living. Untamed.</p>
+                <p class="text-base md:text-lg font-light text-black/60 leading-relaxed max-w-lg">
+                    Pahang is home to vast rainforest landscapes, powerful rivers, hidden waterfalls, and extraordinary natural formations. Across the state, these places form a connected natural world shaped by time, water, and tropical life.
+                </p>
+            </div>
+
+            <div class="w-full lg:w-7/12 aspect-[4/3] lg:aspect-[16/10] overflow-hidden scroll-reveal relative group cursor-pointer" style="transition-delay: 200ms;">
+                <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                <img src="visual/pexels-andrew-ji-2958835-4496004.jpg" onerror="this.onerror=null; this.src='https://placehold.co/1200x800/111827/ffffff?text=Wild+Heart'" alt="Pahang Wilderness" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[2.5s] ease-out">
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3 — Untamed Landscapes List -->
+    <section class="relative w-full bg-white pt-16 md:pt-24 pb-32 md:pb-48 px-6 md:px-12 z-20 overflow-hidden">
+        
+        <div class="max-w-[1400px] mx-auto space-y-32 md:space-y-48">
+            
+            <!-- 01 Waterfalls -->
+            <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-24 group cursor-pointer">
+                <div class="w-full md:w-1/2 aspect-[4/5] lg:aspect-[3/4] overflow-hidden scroll-reveal relative">
+                    <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                    <img src="visual/UL2.jpg" onerror="this.onerror=null; this.src='https://placehold.co/800x1000/111827/ffffff?text=Chamang+Waterfall'" alt="Chamang Waterfall" class="w-full h-full object-cover img-zoom-hover">
+                </div>
+                <div class="w-full md:w-1/2 flex flex-col items-start scroll-reveal" style="transition-delay: 200ms;">
+                    <p class="text-[10px] uppercase tracking-widest-extra text-black/40 mb-4 font-medium">01 — Waterfalls</p>
+                    <h3 class="text-4xl md:text-5xl lg:text-6xl font-serif text-black mb-4 group-hover:text-black/70 transition-colors duration-500">Chamang Waterfall</h3>
+                    <p class="text-xl md:text-2xl font-serif italic text-black/50 mb-8 font-light">Forests, Rocks & Falling Water</p>
+                    <p class="text-base md:text-lg font-light text-black/60 leading-relaxed mb-10 max-w-lg">Follow the sound of rushing water into a lush forest landscape, where cascading falls, rocky pools, and towering greenery create a refreshing natural escape.</p>
+                    <a href="#" class="panel-link-underline pb-1 text-[11px] uppercase tracking-widest font-medium text-black">Explore Destination <span class="ml-1 font-serif text-sm relative top-[1px]">→</span></a>
+                </div>
+            </div>
+
+            <!-- 02 Rivers & Lakes -->
+            <div class="flex flex-col md:flex-row-reverse items-center gap-12 lg:gap-24 group cursor-pointer">
+                <div class="w-full md:w-1/2 aspect-[4/5] lg:aspect-[3/4] overflow-hidden scroll-reveal relative">
+                    <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                    <img src="visual/UL3.jpg" onerror="this.onerror=null; this.src='https://placehold.co/800x1000/111827/ffffff?text=Tasik+Chini'" alt="Tasik Chini" class="w-full h-full object-cover img-zoom-hover">
+                </div>
+                <div class="w-full md:w-1/2 flex flex-col items-start md:items-end text-left md:text-right scroll-reveal" style="transition-delay: 200ms;">
+                    <p class="text-[10px] uppercase tracking-widest-extra text-black/40 mb-4 font-medium">02 — Rivers & Lakes</p>
+                    <h3 class="text-4xl md:text-5xl lg:text-6xl font-serif text-black mb-4 group-hover:text-black/70 transition-colors duration-500">Tasik Chini</h3>
+                    <p class="text-xl md:text-2xl font-serif italic text-black/50 mb-8 font-light">A Lake Shaped by Nature</p>
+                    <p class="text-base md:text-lg font-light text-black/60 leading-relaxed mb-10 max-w-lg">Discover a tranquil landscape of interconnected lakes, waterways, and surrounding forests, where calm waters reveal one of Pahang’s distinctive natural environments.</p>
+                    <a href="#" class="panel-link-underline pb-1 text-[11px] uppercase tracking-widest font-medium text-black">Explore Destination <span class="ml-1 font-serif text-sm relative top-[1px]">→</span></a>
+                </div>
+            </div>
+
+            <!-- 03 Caves & Karst -->
+            <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-24 group cursor-pointer">
+                <div class="w-full md:w-1/2 aspect-[4/5] lg:aspect-[3/4] overflow-hidden scroll-reveal relative">
+                    <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                    <img src="visual/UL4.jpg" onerror="this.onerror=null; this.src='https://placehold.co/800x1000/111827/ffffff?text=Gua+Charas'" alt="Gua Charas" class="w-full h-full object-cover img-zoom-hover">
+                </div>
+                <div class="w-full md:w-1/2 flex flex-col items-start scroll-reveal" style="transition-delay: 200ms;">
+                    <p class="text-[10px] uppercase tracking-widest-extra text-black/40 mb-4 font-medium">03 — Caves & Karst</p>
+                    <h3 class="text-4xl md:text-5xl lg:text-6xl font-serif text-black mb-4 group-hover:text-black/70 transition-colors duration-500">Gua Charas</h3>
+                    <p class="text-xl md:text-2xl font-serif italic text-black/50 mb-8 font-light">Into the Limestone Landscape</p>
+                    <p class="text-base md:text-lg font-light text-black/60 leading-relaxed mb-10 max-w-lg">Step into a dramatic limestone landscape where towering rock formations and ancient caves create a striking world beneath the forest canopy.</p>
+                    <a href="#" class="panel-link-underline pb-1 text-[11px] uppercase tracking-widest font-medium text-black">Explore Destination <span class="ml-1 font-serif text-sm relative top-[1px]">→</span></a>
+                </div>
+            </div>
+
+            <!-- 04 Parks & Nature Reserves -->
+            <div class="flex flex-col md:flex-row-reverse items-center gap-12 lg:gap-24 group cursor-pointer">
+                <div class="w-full md:w-1/2 aspect-[4/5] lg:aspect-[3/4] overflow-hidden scroll-reveal relative">
+                    <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                    <img src="visual/UL1.jpg" onerror="this.onerror=null; this.src='https://placehold.co/800x1000/111827/ffffff?text=Taman+Negara'" alt="Taman Negara" class="w-full h-full object-cover img-zoom-hover">
+                </div>
+                <div class="w-full md:w-1/2 flex flex-col items-start md:items-end text-left md:text-right scroll-reveal" style="transition-delay: 200ms;">
+                    <p class="text-[10px] uppercase tracking-widest-extra text-black/40 mb-4 font-medium">04 — Parks & Nature Reserves</p>
+                    <h3 class="text-4xl md:text-5xl lg:text-6xl font-serif text-black mb-4 group-hover:text-black/70 transition-colors duration-500">Taman Negara</h3>
+                    <p class="text-xl md:text-2xl font-serif italic text-black/50 mb-8 font-light">Ancient Rainforest Exploration</p>
+                    <p class="text-base md:text-lg font-light text-black/60 leading-relaxed mb-10 max-w-lg">Venture into one of the world’s oldest rainforests, where dense jungle, winding rivers, and extraordinary biodiversity create an unforgettable wilderness landscape.</p>
+                    <a href="taman.html" class="panel-link-underline pb-1 text-[11px] uppercase tracking-widest font-medium text-black">Explore Destination <span class="ml-1 font-serif text-sm relative top-[1px]">→</span></a>
+                </div>
+            </div>
+
+            <!-- 05 Mountains & Hills -->
+            <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-24 group cursor-pointer">
+                <div class="w-full md:w-1/2 aspect-[4/5] lg:aspect-[3/4] overflow-hidden scroll-reveal relative">
+                    <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                    <img src="visual/UL5.jpg" onerror="this.onerror=null; this.src='https://placehold.co/800x1000/111827/ffffff?text=Gunung+Tahan'" alt="Gunung Tahan" class="w-full h-full object-cover img-zoom-hover">
+                </div>
+                <div class="w-full md:w-1/2 flex flex-col items-start scroll-reveal" style="transition-delay: 200ms;">
+                    <p class="text-[10px] uppercase tracking-widest-extra text-black/40 mb-4 font-medium">05 — Mountains & Hills</p>
+                    <h3 class="text-4xl md:text-5xl lg:text-6xl font-serif text-black mb-4 group-hover:text-black/70 transition-colors duration-500">Gunung Tahan</h3>
+                    <p class="text-xl md:text-2xl font-serif italic text-black/50 mb-8 font-light">Into Pahang’s High Country</p>
+                    <p class="text-base md:text-lg font-light text-black/60 leading-relaxed mb-10 max-w-lg">Rise above the forest into a rugged mountain landscape shaped by ancient peaks, deep valleys, and expansive views across the heart of Pahang.</p>
+                    <a href="#" class="panel-link-underline pb-1 text-[11px] uppercase tracking-widest font-medium text-black">Explore Destination <span class="ml-1 font-serif text-sm relative top-[1px]">→</span></a>
+                </div>
+            </div>
+
+            <!-- 06 Wetlands & Mangroves -->
+            <div class="flex flex-col md:flex-row-reverse items-center gap-12 lg:gap-24 group cursor-pointer">
+                <div class="w-full md:w-1/2 aspect-[4/5] lg:aspect-[3/4] overflow-hidden scroll-reveal relative">
+                    <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                    <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80" onerror="this.onerror=null; this.src='https://placehold.co/800x1000/111827/ffffff?text=Tasik+Bera'" alt="Tasik Bera" class="w-full h-full object-cover img-zoom-hover">
+                </div>
+                <div class="w-full md:w-1/2 flex flex-col items-start md:items-end text-left md:text-right scroll-reveal" style="transition-delay: 200ms;">
+                    <p class="text-[10px] uppercase tracking-widest-extra text-black/40 mb-4 font-medium">06 — Wetlands & Mangroves</p>
+                    <h3 class="text-4xl md:text-5xl lg:text-6xl font-serif text-black mb-4 group-hover:text-black/70 transition-colors duration-500">Tasik Bera</h3>
+                    <p class="text-xl md:text-2xl font-serif italic text-black/50 mb-8 font-light">Life Between Land & Water</p>
+                    <p class="text-base md:text-lg font-light text-black/60 leading-relaxed mb-10 max-w-lg">Explore a vast wetland landscape where open waters, waterways, and lush vegetation come together in one of Pahang’s most distinctive natural environments.</p>
+                    <a href="#" class="panel-link-underline pb-1 text-[11px] uppercase tracking-widest font-medium text-black">Explore Destination <span class="ml-1 font-serif text-sm relative top-[1px]">→</span></a>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Section 4 — Stories Grid -->
+    <section class="relative w-full bg-[#f9f9f9] py-32 md:py-48 px-6 md:px-12 flex flex-col items-center z-20">
+        <div class="max-w-[1400px] w-full mx-auto">
+            <div class="mb-20 md:mb-28 text-center flex flex-col items-center">
+                <div class="w-[1px] h-20 bg-gradient-to-b from-black/0 via-black/20 to-black/0 mb-12 scroll-reveal"></div>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-black mb-6 font-normal tracking-wide scroll-reveal" style="transition-delay: 100ms;">Stories from the Wild</h2>
+                <p class="text-base md:text-lg text-black/50 font-light tracking-wide max-w-2xl scroll-reveal" style="transition-delay: 200ms;">Discover stories, places, and moments from across Pahang's natural landscapes.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-8">
+                <!-- Story 1 -->
+                <div class="group flex flex-col cursor-pointer scroll-reveal" style="transition-delay: 300ms;">
+                    <div class="w-full aspect-[4/5] overflow-hidden mb-6 relative">
+                        <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                        <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&q=80" alt="Into the Ancient Forest" class="w-full h-full object-cover img-zoom-hover">
+                    </div>
+                    <p class="text-[9px] uppercase tracking-widest-extra text-black/40 mb-3 font-medium">01 — Rainforest</p>
+                    <h3 class="text-xl md:text-2xl font-serif text-black mb-3 group-hover:text-black/60 transition-colors">Into the Ancient Forest</h3>
+                    <p class="text-sm font-light text-black/60 leading-relaxed mb-8 flex-grow">Step beneath the canopy and discover the timeless landscapes of Pahang’s tropical rainforest.</p>
+                    <div class="panel-link-underline pb-1 text-[10px] uppercase tracking-widest font-medium text-black w-fit mt-auto">Read Story <span class="ml-1 font-serif text-sm relative top-[1px]">→</span></div>
+                </div>
+
+                <!-- Story 2 -->
+                <div class="group flex flex-col cursor-pointer scroll-reveal" style="transition-delay: 400ms;">
+                    <div class="w-full aspect-[4/5] overflow-hidden mb-6 relative">
+                        <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&q=80" alt="Where the River Runs" class="w-full h-full object-cover img-zoom-hover">
+                    </div>
+                    <p class="text-[9px] uppercase tracking-widest-extra text-black/40 mb-3 font-medium">02 — Rivers & Lakes</p>
+                    <h3 class="text-xl md:text-2xl font-serif text-black mb-3 group-hover:text-black/60 transition-colors">Where the River Runs</h3>
+                    <p class="text-sm font-light text-black/60 leading-relaxed mb-8 flex-grow">Follow Pahang’s waterways and discover the landscapes shaped by rivers, lakes, and flowing water.</p>
+                    <div class="panel-link-underline pb-1 text-[10px] uppercase tracking-widest font-medium text-black w-fit mt-auto">Read Story <span class="ml-1 font-serif text-sm relative top-[1px]">→</span></div>
+                </div>
+
+                <!-- Story 3 -->
+                <div class="group flex flex-col cursor-pointer scroll-reveal" style="transition-delay: 500ms;">
+                    <div class="w-full aspect-[4/5] overflow-hidden mb-6 relative">
+                        <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                        <img src="https://images.unsplash.com/photo-1534062590214-cb52fbc94178?auto=format&fit=crop&q=80" alt="Beneath the Limestone" class="w-full h-full object-cover img-zoom-hover">
+                    </div>
+                    <p class="text-[9px] uppercase tracking-widest-extra text-black/40 mb-3 font-medium">03 — Caves & Karst</p>
+                    <h3 class="text-xl md:text-2xl font-serif text-black mb-3 group-hover:text-black/60 transition-colors">Beneath the Limestone</h3>
+                    <p class="text-sm font-light text-black/60 leading-relaxed mb-8 flex-grow">Explore the hidden world beneath Pahang’s forests, where ancient limestone formations reveal another side of the landscape.</p>
+                    <div class="panel-link-underline pb-1 text-[10px] uppercase tracking-widest font-medium text-black w-fit mt-auto">Read Story <span class="ml-1 font-serif text-sm relative top-[1px]">→</span></div>
+                </div>
+
+                <!-- Story 4 -->
+                <div class="group flex flex-col cursor-pointer scroll-reveal" style="transition-delay: 600ms;">
+                    <div class="w-full aspect-[4/5] overflow-hidden mb-6 relative">
+                        <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                        <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80" alt="Life Along the Wetlands" class="w-full h-full object-cover img-zoom-hover">
+                    </div>
+                    <p class="text-[9px] uppercase tracking-widest-extra text-black/40 mb-3 font-medium">04 — Wetlands</p>
+                    <h3 class="text-xl md:text-2xl font-serif text-black mb-3 group-hover:text-black/60 transition-colors">Life Along the Wetlands</h3>
+                    <p class="text-sm font-light text-black/60 leading-relaxed mb-8 flex-grow">Discover the quiet beauty of Pahang’s wetlands, where water, forest, and open landscapes come together.</p>
+                    <div class="panel-link-underline pb-1 text-[10px] uppercase tracking-widest font-medium text-black w-fit mt-auto">Read Story <span class="ml-1 font-serif text-sm relative top-[1px]">→</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FULLSCREEN GALLERY SECTION -->
+    <section class="relative w-full h-[100svh] bg-[#0a0a0a] overflow-hidden z-20">
+        <div class="absolute bottom-12 md:bottom-20 right-6 md:right-12 z-40 flex items-center space-x-4 md:space-x-6">
+            <button id="gallery-prev" aria-label="Previous image" class="group flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-full border border-white/20 hover:border-white transition-all duration-500 focus:outline-none backdrop-blur-sm bg-black/10 hover:bg-white hover:text-black text-white">
+                <svg class="w-5 h-5 md:w-6 md:h-6 font-light transform group-hover:-translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+            <button id="gallery-next" aria-label="Next image" class="group flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-full border border-white/20 hover:border-white transition-all duration-500 focus:outline-none backdrop-blur-sm bg-black/10 hover:bg-white hover:text-black text-white">
+                <svg class="w-5 h-5 md:w-6 md:h-6 font-light transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+        </div>
+
+        <div class="absolute inset-0 w-full h-full">
+            <div class="gallery-slide absolute inset-0 w-full h-full transition-opacity duration-[1.5s] ease-in-out opacity-0 z-10 pointer-events-none">
+                <img src="visual/01.jpg" onerror="this.onerror=null; this.src='https://placehold.co/1920x1080/0a0a0a/ffffff?text=The+Canopy'" alt="The Canopy" class="gallery-img absolute inset-0 w-full h-full object-cover transition-transform duration-[20s] ease-out scale-100">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-black/40"></div>
+                
+                <div class="gallery-content absolute bottom-12 md:bottom-20 left-6 md:left-12 z-30 transform translate-y-10 opacity-0 transition-all duration-[1.5s] ease-out delay-300 pointer-events-auto">
+                    <p class="text-[10px] md:text-xs uppercase tracking-widest-extra text-white/60 mb-4 font-medium flex items-center">
+                        <span class="w-8 h-[1px] bg-white/50 mr-4 inline-block"></span> 
+                        01 / 04
+                    </p>
+                    <h3 class="text-4xl md:text-6xl lg:text-7xl font-serif text-white font-normal drop-shadow-2xl">Taman Negara</h3>
+                </div>
+            </div>
+
+            <div class="gallery-slide absolute inset-0 w-full h-full transition-opacity duration-[1.5s] ease-in-out opacity-0 z-10 pointer-events-none">
+                <img src="visual/02.jpg" onerror="this.onerror=null; this.src='https://placehold.co/1920x1080/0a0a0a/ffffff?text=Cascading+Waters'" alt="Cascading Waters" class="gallery-img absolute inset-0 w-full h-full object-cover transition-transform duration-[20s] ease-out scale-100">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-black/40"></div>
+                
+                <div class="gallery-content absolute bottom-12 md:bottom-20 left-6 md:left-12 z-30 transform translate-y-10 opacity-0 transition-all duration-[1.5s] ease-out delay-300 pointer-events-auto">
+                    <p class="text-[10px] md:text-xs uppercase tracking-widest-extra text-white/60 mb-4 font-medium flex items-center">
+                        <span class="w-8 h-[1px] bg-white/50 mr-4 inline-block"></span> 
+                        02 / 04
+                    </p>
+                    <h3 class="text-4xl md:text-6xl lg:text-7xl font-serif text-white font-normal drop-shadow-2xl">Cascading Waters</h3>
+                </div>
+            </div>
+
+            <div class="gallery-slide absolute inset-0 w-full h-full transition-opacity duration-[1.5s] ease-in-out opacity-0 z-10 pointer-events-none">
+                <img src="visual/03.jpg" onerror="this.onerror=null; this.src='https://placehold.co/1920x1080/0a0a0a/ffffff?text=River+Journey'" alt="River Journey" class="gallery-img absolute inset-0 w-full h-full object-cover transition-transform duration-[20s] ease-out scale-100">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-black/40"></div>
+                
+                <div class="gallery-content absolute bottom-12 md:bottom-20 left-6 md:left-12 z-30 transform translate-y-10 opacity-0 transition-all duration-[1.5s] ease-out delay-300 pointer-events-auto">
+                    <p class="text-[10px] md:text-xs uppercase tracking-widest-extra text-white/60 mb-4 font-medium flex items-center">
+                        <span class="w-8 h-[1px] bg-white/50 mr-4 inline-block"></span> 
+                        03 / 04
+                    </p>
+                    <h3 class="text-4xl md:text-6xl lg:text-7xl font-serif text-white font-normal drop-shadow-2xl">River Journey</h3>
+                </div>
+            </div>
+
+            <div class="gallery-slide absolute inset-0 w-full h-full transition-opacity duration-[1.5s] ease-in-out opacity-0 z-10 pointer-events-none">
+                <img src="visual/04.jpg" onerror="this.onerror=null; this.src='https://placehold.co/1920x1080/0a0a0a/ffffff?text=Mountain+Peaks'" alt="Mountain Peaks" class="gallery-img absolute inset-0 w-full h-full object-cover transition-transform duration-[20s] ease-out scale-100">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-black/40"></div>
+                
+                <div class="gallery-content absolute bottom-12 md:bottom-20 left-6 md:left-12 z-30 transform translate-y-10 opacity-0 transition-all duration-[1.5s] ease-out delay-300 pointer-events-auto">
+                    <p class="text-[10px] md:text-xs uppercase tracking-widest-extra text-white/60 mb-4 font-medium flex items-center">
+                        <span class="w-8 h-[1px] bg-white/50 mr-4 inline-block"></span> 
+                        04 / 04
+                    </p>
+                    <h3 class="text-4xl md:text-6xl lg:text-7xl font-serif text-white font-normal drop-shadow-2xl">Mountain Peaks</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discover by Landscape Section with Filter -->
+    <section class="relative w-full bg-white pb-32 md:pb-48 px-6 md:px-12 z-20 pt-32 md:pt-48">
+        <div class="max-w-[1600px] w-full mx-auto">
+            <div class="mb-16 md:mb-24 text-center flex flex-col items-center">
+                <div class="w-[1px] h-20 bg-gradient-to-b from-black/0 via-black/20 to-black/0 mb-12 scroll-reveal"></div>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-black mb-6 font-normal tracking-wide scroll-reveal" style="transition-delay: 100ms;">Discover by Landscape</h2>
+                <p class="text-xl md:text-2xl font-serif italic text-black/50 mb-6 font-light scroll-reveal" style="transition-delay: 200ms;">Find Your Natural Escape</p>
+                <p class="text-base md:text-lg text-black/50 font-light tracking-wide max-w-2xl scroll-reveal" style="transition-delay: 300ms;">Explore Pahang through its distinctive natural landscapes.</p>
+            </div>
+
+            <div class="flex flex-col items-center mb-16 md:mb-24 scroll-reveal" style="transition-delay: 400ms;">
+                <span class="text-[9px] md:text-[10px] uppercase tracking-widest-extra text-black/40 mb-8 font-medium">Filter Landscape</span>
+                <div class="flex flex-wrap justify-center gap-6 md:gap-10">
+                    <button class="filter-btn text-black text-[10px] md:text-xs uppercase tracking-widest font-medium transition-colors duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[1px] after:bg-black after:transition-all after:duration-300" data-filter="all">All</button>
+                    <button class="filter-btn text-black/40 hover:text-black text-[10px] md:text-xs uppercase tracking-widest font-medium transition-colors duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-black after:transition-all after:duration-300 hover:after:w-full" data-filter="rainforest">Rainforest</button>
+                    <button class="filter-btn text-black/40 hover:text-black text-[10px] md:text-xs uppercase tracking-widest font-medium transition-colors duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-black after:transition-all after:duration-300 hover:after:w-full" data-filter="waterfalls">Waterfalls</button>
+                    <button class="filter-btn text-black/40 hover:text-black text-[10px] md:text-xs uppercase tracking-widest font-medium transition-colors duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-black after:transition-all after:duration-300 hover:after:w-full" data-filter="rivers">Rivers & Lakes</button>
+                    <button class="filter-btn text-black/40 hover:text-black text-[10px] md:text-xs uppercase tracking-widest font-medium transition-colors duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-black after:transition-all after:duration-300 hover:after:w-full" data-filter="caves">Caves & Karst</button>
+                    <button class="filter-btn text-black/40 hover:text-black text-[10px] md:text-xs uppercase tracking-widest font-medium transition-colors duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-black after:transition-all after:duration-300 hover:after:w-full" data-filter="parks">Parks & Reserves</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 md:gap-8 transition-all duration-700 ease-out" id="landscape-grid">
+                <div class="landscape-item group flex flex-col cursor-pointer transition-all duration-500 transform opacity-100 scale-100" data-category="rainforest">
+                    <div class="w-full aspect-[4/5] overflow-hidden mb-5 relative">
+                        <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                        <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&q=80" alt="Taman Negara" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[2s] ease-out">
+                    </div>
+                    <p class="text-[9px] uppercase tracking-widest-extra text-black/40 mb-2 font-medium">Rainforest</p>
+                    <h3 class="text-xl md:text-2xl font-serif text-black mb-5 group-hover:text-black/60 transition-colors">Taman Negara</h3>
+                    <div class="panel-link-underline pb-1 text-[10px] uppercase tracking-widest font-medium text-black w-fit mt-auto">Explore <span class="ml-1 font-serif text-sm relative top-[1px]">→</span></div>
+                </div>
+
+                <div class="landscape-item group flex flex-col cursor-pointer transition-all duration-500 transform opacity-100 scale-100" data-category="caves">
+                    <div class="w-full aspect-[4/5] overflow-hidden mb-5 relative">
+                        <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                        <img src="https://images.unsplash.com/photo-1534062590214-cb52fbc94178?auto=format&fit=crop&q=80" alt="Gua Charas" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[2s] ease-out">
+                    </div>
+                    <p class="text-[9px] uppercase tracking-widest-extra text-black/40 mb-2 font-medium">Caves & Karst</p>
+                    <h3 class="text-xl md:text-2xl font-serif text-black mb-5 group-hover:text-black/60 transition-colors">Gua Charas</h3>
+                    <div class="panel-link-underline pb-1 text-[10px] uppercase tracking-widest font-medium text-black w-fit mt-auto">Explore <span class="ml-1 font-serif text-sm relative top-[1px]">→</span></div>
+                </div>
+
+                <div class="landscape-item group flex flex-col cursor-pointer transition-all duration-500 transform opacity-100 scale-100" data-category="waterfalls">
+                    <div class="w-full aspect-[4/5] overflow-hidden mb-5 relative">
+                        <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                        <img src="https://images.unsplash.com/photo-1432405972618-fc027058bfe6?auto=format&fit=crop&q=80" alt="Chamang Waterfalls" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[2s] ease-out">
+                    </div>
+                    <p class="text-[9px] uppercase tracking-widest-extra text-black/40 mb-2 font-medium">Waterfalls</p>
+                    <h3 class="text-xl md:text-2xl font-serif text-black mb-5 group-hover:text-black/60 transition-colors">Chamang Waterfalls</h3>
+                    <div class="panel-link-underline pb-1 text-[10px] uppercase tracking-widest font-medium text-black w-fit mt-auto">Explore <span class="ml-1 font-serif text-sm relative top-[1px]">→</span></div>
+                </div>
+
+                <div class="landscape-item group flex flex-col cursor-pointer transition-all duration-500 transform opacity-100 scale-100" data-category="rivers">
+                    <div class="w-full aspect-[4/5] overflow-hidden mb-5 relative">
+                        <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&q=80" alt="Tembeling River" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[2s] ease-out">
+                    </div>
+                    <p class="text-[9px] uppercase tracking-widest-extra text-black/40 mb-2 font-medium">Rivers & Lakes</p>
+                    <h3 class="text-xl md:text-2xl font-serif text-black mb-5 group-hover:text-black/60 transition-colors">Tembeling River</h3>
+                    <div class="panel-link-underline pb-1 text-[10px] uppercase tracking-widest font-medium text-black w-fit mt-auto">Explore <span class="ml-1 font-serif text-sm relative top-[1px]">→</span></div>
+                </div>
+
+                <div class="landscape-item group flex flex-col cursor-pointer transition-all duration-500 transform opacity-100 scale-100" data-category="parks">
+                    <div class="w-full aspect-[4/5] overflow-hidden mb-5 relative">
+                        <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                        <img src="https://images.unsplash.com/photo-1469122312224-c5846569feb1?auto=format&fit=crop&q=80" alt="Endau-Rompin" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[2s] ease-out">
+                    </div>
+                    <p class="text-[9px] uppercase tracking-widest-extra text-black/40 mb-2 font-medium">Parks & Reserves</p>
+                    <h3 class="text-xl md:text-2xl font-serif text-black mb-5 group-hover:text-black/60 transition-colors">Endau-Rompin</h3>
+                    <div class="panel-link-underline pb-1 text-[10px] uppercase tracking-widest font-medium text-black w-fit mt-auto">Explore <span class="ml-1 font-serif text-sm relative top-[1px]">→</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative w-full min-h-screen bg-[#0B1220] flex flex-col px-6 md:px-12 pb-8 md:pb-12 z-20 text-white overflow-x-hidden border-t border-white/10">
+        <div class="flex-1 flex flex-col items-center justify-center text-center w-full z-10 scroll-reveal py-20">
+            <h2 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[8.5rem] leading-[1.05] tracking-tight font-light text-white">
+                A Window Into <br />
+                <span class="italic text-white/70">Pahang</span>
+            </h2>
+        </div>
+
+        <div class="w-full max-w-[1600px] mx-auto z-10 flex-shrink-0">
+            <div class="grid grid-cols-2 md:grid-cols-12 gap-y-12 gap-x-6 border-t border-white/10 pt-12 pb-12 scroll-reveal" style="transition-delay: 100ms;">
+                <div class="col-span-2 md:col-span-4 flex flex-col justify-between md:pr-8">
+                    <div class="flex flex-col items-start leading-none mb-6">
+                        <span class="text-2xl md:text-3xl font-serif tracking-[0.2em] text-white">EXPERIENCE</span>
+                        <span class="text-[9px] md:text-[10px] tracking-[0.4em] font-light mt-3 text-white/70 pl-[0.4em]">PAHANG</span>
+                    </div>
+                    <p class="text-sm md:text-base font-light text-white/50 max-w-[280px] leading-relaxed">
+                        Where every journey becomes a story. Discover the soul of Pahang.
+                    </p>
+                </div>
+
+                <div class="col-span-1 md:col-span-2 flex flex-col md:pl-8">
+                    <h4 class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/40 mb-6 font-medium">Explore</h4>
+                    <div class="space-y-4 text-sm font-light tracking-widest text-white/80">
+                        <a href="#" class="block w-fit hover:text-[#C5A059] hover:translate-x-1 transition-all duration-300">Events</a>
+                        <a href="story.html" class="block w-fit hover:text-[#C5A059] hover:translate-x-1 transition-all duration-300">Stories</a>
+                        <a href="#" class="block w-fit hover:text-[#C5A059] hover:translate-x-1 transition-all duration-300">Gallery</a>
+                    </div>
+                </div>
+
+                <div class="col-span-1 md:col-span-2 flex flex-col">
+                    <h4 class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/40 mb-6 font-medium">Relevant</h4>
+                    <div class="space-y-4 text-sm font-light tracking-widest text-white/80">
+                        <a href="#" class="block w-fit hover:text-[#C5A059] hover:translate-x-1 transition-all duration-300">Contact Us</a>
+                        <a href="#" class="block w-fit hover:text-[#C5A059] hover:translate-x-1 transition-all duration-300">Press &amp; News</a>
+                        <a href="#" class="block w-fit hover:text-[#C5A059] hover:translate-x-1 transition-all duration-300">Careers</a>
+                    </div>
+                </div>
+
+                <div class="col-span-2 md:col-span-4 flex flex-col items-start md:items-end justify-between mt-4 md:mt-0">
+                    <div class="w-full flex flex-col md:items-end mb-10 md:mb-0">
+                        <h4 class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/40 mb-6 font-medium text-left md:text-right">Connect</h4>
+                        <div class="flex flex-wrap gap-x-6 gap-y-3 text-sm font-light tracking-widest text-white/80">
+                            <a href="#" class="hover:text-[#C5A059] transition-colors duration-300 uppercase">Instagram</a>
+                            <a href="#" class="hover:text-[#C5A059] transition-colors duration-300 uppercase">YouTube</a>
+                            <a href="#" class="hover:text-[#C5A059] transition-colors duration-300 uppercase">TikTok</a>
+                        </div>
+                    </div>
+
+                    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Scroll to top" class="flex items-center space-x-3 text-white/50 hover:text-[#C5A059] transition-all duration-300 group focus:outline-none uppercase tracking-widest text-xs mt-8">
+                        <span>To The Top</span>
+                        <span class="relative overflow-hidden flex items-center justify-center w-8 h-8 rounded-full border border-white/20 group-hover:border-[#C5A059] transition-colors">
+                            <span class="absolute font-serif text-sm group-hover:-translate-y-6 transition-transform duration-500">↑</span>
+                            <span class="absolute font-serif text-sm translate-y-6 group-hover:translate-y-0 transition-transform duration-500">↑</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex flex-col-reverse md:flex-row justify-between items-center pt-8 pb-2 border-t border-white/10 text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-white/40 font-medium scroll-reveal" style="transition-delay: 100ms;">
+                <p class="mt-6 md:mt-0 text-center md:text-left">© 2026 Experience Pahang. All rights reserved.</p>
+                <div class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+                    <a href="#" class="hover:text-white transition-colors duration-300">Terms of Use</a>
+                    <a href="#" class="hover:text-white transition-colors duration-300">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors duration-300">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Overlay & Sliding Panels -->
+    <div id="panel-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] opacity-0 pointer-events-none transition-opacity duration-700 ease-out"></div>
+
+    <!-- LEFT SIDE PANEL -->
+    <div id="panel-left" class="fixed top-0 left-0 w-full md:w-1/3 h-full bg-white z-[70] transform -translate-x-[150%] transition-transform duration-700 cubic-bezier-panel flex flex-col justify-center px-12 md:px-20 shadow-2xl border-r border-black/5">
+        <button aria-label="Close Panel" class="close-panel absolute top-10 right-10 md:right-12 text-black/50 hover:text-black transition-colors duration-300 focus:outline-none">
+            <svg class="w-8 h-8 font-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+        <div class="mb-16 opacity-0 translate-y-6 transition-all duration-700 panel-header-left">
+            <span id="panel-title-left" class="text-[10px] uppercase tracking-widest-extra text-black/40 border-b border-black/20 pb-3">Wander</span>
+        </div>
+
+        <nav id="nav-wander" class="menu-group flex flex-col space-y-10">
+            <a href="nature.html" data-target="img-nature" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Rainforest &amp; Nature</a>
+            <a href="#" data-target="img-highland" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Farms &amp; Flavours</a>
+            <a href="#" data-target="img-coast" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Islands &amp; Beaches</a>
+            <a href="#" data-target="img-culture" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Culture &amp; Heritage</a>
+            <a href="#" data-target="img-adventure" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Adventures &amp; Outdoor</a>
+        </nav>
+
+        <nav id="nav-unwind" class="menu-group hidden flex-col space-y-10">
+            <a href="#" data-target="img-eat" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Eat &amp; Drink</a>
+            <a href="#" data-target="img-stay" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Stay</a>
+            <a href="#" data-target="img-spa" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Spa &amp; Wellness</a>
+            <a href="#" data-target="img-lifestyle" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Lifestyle</a>
+            <a href="#" data-target="img-family" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Family Fun</a>
+        </nav>
+    </div>
+
+    <!-- RIGHT SIDE PANEL -->
+    <div id="panel-right" class="fixed top-0 right-0 w-full md:w-1/3 h-full bg-white z-[70] transform translate-x-[150%] transition-transform duration-700 cubic-bezier-panel flex flex-col justify-center px-12 md:px-20 shadow-2xl border-l border-black/5">
+        <button aria-label="Close Panel" class="close-panel absolute top-10 left-10 md:left-12 text-black/50 hover:text-black transition-colors duration-300 focus:outline-none">
+            <svg class="w-8 h-8 font-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+        <div class="mb-16 opacity-0 translate-y-6 transition-all duration-700 panel-header-right text-right">
+            <span id="panel-title-right" class="text-[10px] uppercase tracking-widest-extra text-black/40 border-b border-black/20 pb-3 inline-block">Origin</span>
+        </div>
+
+        <nav id="nav-origin" class="menu-group hidden flex-col space-y-10 text-right items-end">
+            <a href="#" data-target="img-story" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Our Story</a>
+            <a href="#" data-target="img-impact" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Impact</a>
+            <a href="#" data-target="img-partnership" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Partnership</a>
+            <a href="#" data-target="img-vision" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Vision</a>
+            <a href="#" data-target="img-involved" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Get Involved</a>
+        </nav>
+
+        <nav id="nav-plan" class="menu-group hidden flex-col space-y-10 text-right items-end">
+            <a href="#" data-target="img-transport" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Transport</a>
+            <a href="#" data-target="img-weather" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Weather &amp; Climate</a>
+            <a href="#" data-target="img-fact" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Essential Fact</a>
+            <a href="#" data-target="img-calendar" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Calendar</a>
+            <a href="#" data-target="img-map" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Map</a>
+        </nav>
+    </div>
+
+    <!-- LEFT IMAGE PANEL -->
+    <div id="image-panel-left" class="fixed top-0 left-1/3 w-1/3 h-full z-[65] transform -translate-x-full opacity-0 transition-all duration-700 cubic-bezier-panel overflow-hidden pointer-events-none hidden md:block">
+        <div class="absolute inset-0 bg-black/10 z-10"></div>
+        <img id="img-nature" src="visual/hero/home-w1.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Rainforest and Nature">
+        <img id="img-highland" src="visual/hero/home-w2.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Highland">
+        <img id="img-coast" src="visual/hero/home-w3.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Coast and Island">
+        <img id="img-culture" src="visual/hero/home-w4.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Culture and Heritage">
+        <img id="img-adventure" src="visual/hero/home-w5.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Outdoor Adventure">
+        
+        <img id="img-eat" src="visual/hero/home-u1.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Eat and Drink">
+        <img id="img-stay" src="visual/hero/home-u2.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Stay">
+        <img id="img-spa" src="visual/hero/home-u3.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Spa and Wellness">
+        <img id="img-lifestyle" src="visual/hero/home-u4.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Lifestyle">
+        <img id="img-family" src="visual/hero/home-u5.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Family Fun">
+    </div>
+
+    <!-- RIGHT IMAGE PANEL -->
+    <div id="image-panel-right" class="fixed top-0 right-1/3 w-1/3 h-full z-[65] transform translate-x-full opacity-0 transition-all duration-700 cubic-bezier-panel overflow-hidden pointer-events-none hidden md:block">
+        <div class="absolute inset-0 bg-black/10 z-10"></div>
+        <img id="img-story" src="visual/hero/home-o1.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Our Story">
+        <img id="img-impact" src="visual/hero/home-o2.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Impact">
+        <img id="img-partnership" src="visual/hero/home-o3.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Partnership">
+        <img id="img-vision" src="visual/hero/home-o4.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Vision">
+        <img id="img-involved" src="visual/hero/home-o5.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Get Involved">
+        
+        <img id="img-transport" src="visual/hero/home-p1.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Transport">
+        <img id="img-weather" src="visual/hero/home-p2.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Weather and Climate">
+        <img id="img-fact" src="visual/hero/home-p3.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Essential Fact">
+        <img id="img-calendar" src="visual/hero/home-p4.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Calendar">
+        <img id="img-map" src="visual/hero/home-p5.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Map">
+    </div>
+
+    <script>
+        // --- Mobile Menu Logic ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        let isMobileMenuOpen = false;
+
+        function toggleMobileMenu() {
+            isMobileMenuOpen = !isMobileMenuOpen;
+            const spans = mobileMenuBtn.querySelectorAll('span');
+            
+            if (isMobileMenuOpen) {
+                spans[0].style.transform = 'translateY(3.5px) rotate(45deg)';
+                spans[1].style.transform = 'translateY(-3.5px) rotate(-45deg)';
+                mobileMenuOverlay.classList.remove('opacity-0', 'pointer-events-none');
+                mobileMenuOverlay.classList.add('opacity-100', 'pointer-events-auto');
+            } else {
+                spans[0].style.transform = 'translateY(0) rotate(0)';
+                spans[1].style.transform = 'translateY(0) rotate(0)';
+                mobileMenuOverlay.classList.remove('opacity-100', 'pointer-events-auto');
+                mobileMenuOverlay.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        if(mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        }
+
+        // Allow mobile navigation buttons to open specific side panels
+        document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = btn.getAttribute('data-target');
+                toggleMobileMenu();
+                setTimeout(() => {
+                    openPanel(target);
+                }, 400); 
+            });
+        });
+
+        // --- Panel Navigation Logic ---
+        const menuConfig = {
+            wander: { side: 'left', title: 'Wander' },
+            unwind: { side: 'left', title: 'Unwind' },
+            origin: { side: 'right', title: 'Origin' },
+            plan: { side: 'right', title: 'Plan' }
+        };
+
+        const panelOverlay = document.getElementById('panel-overlay');
+        const panelLeft = document.getElementById('panel-left');
+        const panelRight = document.getElementById('panel-right');
+        const imgPanelLeft = document.getElementById('image-panel-left');
+        const imgPanelRight = document.getElementById('image-panel-right');
+        
+        const panelTitleLeft = document.getElementById('panel-title-left');
+        const panelTitleRight = document.getElementById('panel-title-right');
+
+        function openPanel(menuId) {
+            const config = menuConfig[menuId];
+            document.querySelectorAll('.menu-group').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('flex');
+            });
+            const targetNav = document.getElementById(`nav-${menuId}`);
+            if(!targetNav) return;
+            
+            targetNav.classList.remove('hidden');
+            targetNav.classList.add('flex');
+
+            document.querySelectorAll('.panel-content').forEach(el => {
+                el.classList.remove('opacity-100', 'translate-y-0');
+                el.classList.add('opacity-0', 'translate-y-6');
+            });
+
+            panelOverlay.classList.remove('opacity-0', 'pointer-events-none');
+            panelOverlay.classList.add('opacity-100', 'pointer-events-auto');
+
+            if (config.side === 'left') {
+                panelTitleLeft.textContent = config.title;
+                panelLeft.classList.remove('-translate-x-[150%]');
+                panelLeft.classList.add('translate-x-0');
+            } else {
+                panelTitleRight.textContent = config.title;
+                panelRight.classList.remove('translate-x-[150%]');
+                panelRight.classList.add('translate-x-0');
+            }
+
+            setTimeout(() => {
+                targetNav.querySelectorAll('.panel-content').forEach((el, index) => {
+                    setTimeout(() => {
+                        el.classList.remove('opacity-0', 'translate-y-6');
+                        el.classList.add('opacity-100', 'translate-y-0');
+                    }, index * 80);
+                });
+                const headerClass = config.side === 'left' ? '.panel-header-left' : '.panel-header-right';
+                const headerElement = document.querySelector(headerClass);
+                if (headerElement) {
+                    headerElement.classList.remove('opacity-0', 'translate-y-6');
+                    headerElement.classList.add('opacity-100', 'translate-y-0');
+                }
+            }, 300);
+        }
+
+        function closePanels() {
+            panelOverlay.classList.remove('opacity-100', 'pointer-events-auto');
+            panelOverlay.classList.add('opacity-0', 'pointer-events-none');
+            panelLeft.classList.remove('translate-x-0');
+            panelLeft.classList.add('-translate-x-[150%]');
+            panelRight.classList.remove('translate-x-0');
+            panelRight.classList.add('translate-x-[150%]');
+            imgPanelLeft.classList.remove('translate-x-0', 'opacity-100');
+            imgPanelLeft.classList.add('-translate-x-full', 'opacity-0');
+            imgPanelRight.classList.remove('translate-x-0', 'opacity-100');
+            imgPanelRight.classList.add('translate-x-full', 'opacity-0');
+
+            document.querySelectorAll('.panel-header-left, .panel-header-right').forEach(el => {
+                el.classList.remove('opacity-100', 'translate-y-0');
+                el.classList.add('opacity-0', 'translate-y-6');
+            });
+
+            setTimeout(() => {
+                document.querySelectorAll('.panel-img').forEach(img => {
+                    img.classList.remove('opacity-100', 'scale-100');
+                    img.classList.add('opacity-0', 'scale-105');
+                });
+            }, 700);
+        }
+
+        // Desktop Nav Actions
+        const btnWander = document.getElementById('btn-wander');
+        const btnUnwind = document.getElementById('btn-unwind');
+        const btnOrigin = document.getElementById('btn-origin');
+        const btnPlan = document.getElementById('btn-plan');
+
+        if(btnWander) btnWander.addEventListener('click', () => openPanel('wander'));
+        if(btnUnwind) btnUnwind.addEventListener('click', () => openPanel('unwind'));
+        if(btnOrigin) btnOrigin.addEventListener('click', () => openPanel('origin'));
+        if(btnPlan) btnPlan.addEventListener('click', () => openPanel('plan'));
+
+        document.querySelectorAll('.close-panel').forEach(btn => btn.addEventListener('click', closePanels));
+        if(panelOverlay) panelOverlay.addEventListener('click', closePanels);
+
+        // --- Panel Hover Actions ---
+        document.querySelectorAll('.panel-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const targetId = item.getAttribute('data-target');
+                const targetImg = document.getElementById(targetId);
+                const isLeft = item.closest('#panel-left') !== null;
+                const activeImgPanel = isLeft ? imgPanelLeft : imgPanelRight;
+                const directionClass = isLeft ? '-translate-x-full' : 'translate-x-full';
+
+                activeImgPanel.classList.remove(directionClass, 'opacity-0');
+                activeImgPanel.classList.add('translate-x-0', 'opacity-100');
+
+                activeImgPanel.querySelectorAll('.panel-img').forEach(img => {
+                    img.classList.remove('opacity-100', 'scale-100');
+                    img.classList.add('opacity-0', 'scale-105');
+                });
+
+                if (targetImg) {
+                    targetImg.classList.remove('opacity-0', 'scale-105');
+                    targetImg.classList.add('opacity-100', 'scale-100');
+                }
+            });
+        });
+
+        document.querySelectorAll('.menu-group').forEach(navGroup => {
+            navGroup.addEventListener('mouseleave', () => {
+                const isLeft = navGroup.closest('#panel-left') !== null;
+                const activeImgPanel = isLeft ? imgPanelLeft : imgPanelRight;
+                const directionClass = isLeft ? '-translate-x-full' : 'translate-x-full';
+                activeImgPanel.classList.remove('translate-x-0', 'opacity-100');
+                activeImgPanel.classList.add(directionClass, 'opacity-0');
+            });
+        });
+
+        // --- Intersection Observer for scrolling animations ---
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -50px 0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        requestAnimationFrame(() => {
+                            entry.target.classList.add('is-visible');
+                        });
+                        obs.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.scroll-reveal').forEach((el) => {
+                observer.observe(el);
+            });
+        });
+
+        // --- IMMERSIVE GALLERY LOGIC ---
+        const gallerySlides = document.querySelectorAll('.gallery-slide');
+        const btnNext = document.getElementById('gallery-next');
+        const btnPrev = document.getElementById('gallery-prev');
+        let currentSlide = 0;
+        
+        if (gallerySlides.length > 0) {
+            function activateSlide(index) {
+                gallerySlides.forEach((slide, i) => {
+                    const img = slide.querySelector('.gallery-img');
+                    const content = slide.querySelector('.gallery-content');
+                    
+                    if (i === index) {
+                        slide.classList.remove('opacity-0', 'z-10', 'pointer-events-none');
+                        slide.classList.add('opacity-100', 'z-20', 'pointer-events-auto');
+                        if(img) { img.classList.remove('scale-100'); img.classList.add('scale-105'); }
+                        if(content) { content.classList.remove('translate-y-10', 'opacity-0'); content.classList.add('translate-y-0', 'opacity-100'); }
+                    } else {
+                        slide.classList.remove('opacity-100', 'z-20', 'pointer-events-auto');
+                        slide.classList.add('opacity-0', 'z-10', 'pointer-events-none');
+                        if(img) { img.classList.remove('scale-105'); img.classList.add('scale-100'); }
+                        if(content) { content.classList.remove('translate-y-0', 'opacity-100'); content.classList.add('translate-y-10', 'opacity-0'); }
+                    }
+                });
+            }
+
+            setTimeout(() => activateSlide(0), 100);
+
+            if(btnNext) {
+                btnNext.addEventListener('click', () => {
+                    currentSlide = (currentSlide + 1) % gallerySlides.length;
+                    activateSlide(currentSlide);
+                });
+            }
+
+            if(btnPrev) {
+                btnPrev.addEventListener('click', () => {
+                    currentSlide = (currentSlide - 1 + gallerySlides.length) % gallerySlides.length;
+                    activateSlide(currentSlide);
+                });
+            }
+        }
+
+        // --- LANDSCAPE FILTER LOGIC ---
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const landscapeItems = document.querySelectorAll('.landscape-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active state of buttons
+                filterBtns.forEach(b => {
+                    b.classList.remove('text-black', 'after:w-full');
+                    b.classList.add('text-black/40', 'after:w-0');
+                });
+                
+                btn.classList.add('text-black', 'after:w-full');
+                btn.classList.remove('text-black/40', 'after:w-0');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                // Filter items
+                landscapeItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'flex';
+                        // Tiny timeout allows display block to render before opacity transition triggers
+                        setTimeout(() => {
+                            item.classList.remove('opacity-0', 'scale-95');
+                            item.classList.add('opacity-100', 'scale-100');
+                        }, 50);
+                    } else {
+                        item.classList.remove('opacity-100', 'scale-100');
+                        item.classList.add('opacity-0', 'scale-95');
+                        setTimeout(() => {
+                            if(item.classList.contains('opacity-0')) {
+                                item.style.display = 'none';
+                            }
+                        }, 500); 
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
