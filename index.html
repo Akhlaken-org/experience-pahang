@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience Pahang | The Sanctuary of Rainforests, Highlands & Isles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                },
+            },
+        }
+    </script>
+
+    <style>
+        /* Base typography settings */
+        body {
+            font-family: 'Jost', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Ultra-wide tracking for luxury feel */
+        .tracking-widest-extra {
+            letter-spacing: 0.25em;
+        }
+        .tracking-mega {
+            letter-spacing: 0.4em;
+        }
+
+        /* Cinematic Animations */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slowPan {
+            0% { transform: scale(1.05) translate(0, 0); }
+            100% { transform: scale(1.1) translate(-1%, 1%); }
+        }
+
+        @keyframes pulseLine {
+            0%, 100% { height: 3rem; opacity: 0.4; }
+            50% { height: 4rem; opacity: 1; }
+        }
+
+        .animate-fade-in-up {
+            opacity: 0; /* Starts hidden */
+            animation: fadeInUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        .animate-pan {
+            animation: slowPan 25s ease-in-out infinite alternate;
+        }
+
+        .animate-scroll-line {
+            animation: pulseLine 2s ease-in-out infinite;
+        }
+
+        /* Delay utilities for staggered text loading */
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-600 { animation-delay: 0.6s; }
+        .delay-900 { animation-delay: 0.9s; }
+
+        /* Custom underline hover effect for nav links */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -4px;
+            left: 50%;
+            background-color: #ffffff;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .cubic-bezier-panel {
+            transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .panel-link-underline {
+            position: relative;
+            display: inline-block;
+            width: fit-content;
+        }
+        .panel-link-underline::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -4px;
+            left: 0; /* Left-aligned underline for panel links */
+            background-color: currentColor;
+            transition: all 0.4s ease;
+        }
+        .panel-link-underline:hover::after {
+            width: 100%;
+        }
+
+        /* Scroll Reveal Utility */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            will-change: opacity, transform;
+        }
+        .scroll-reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header class="absolute top-0 left-0 w-full z-50 px-6 py-8 md:px-12 md:py-10 flex justify-between items-center mix-blend-difference text-white">
+        
+        <!-- Desktop Left Navigation -->
+        <nav class="hidden lg:flex items-center space-x-10 text-[13px] uppercase tracking-widest-extra font-medium z-10">
+            <button id="btn-wander" class="nav-link text-white/80 hover:text-white transition-colors duration-300 focus:outline-none uppercase tracking-widest-extra">Wander</button>
+            <button id="btn-unwind" class="nav-link text-white/80 hover:text-white transition-colors duration-300 focus:outline-none uppercase tracking-widest-extra">Unwind</button>
+        </nav>
+
+        <!-- Center Logo -->
+        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center text-center cursor-pointer hover:opacity-80 transition-opacity duration-300 z-10">
+            <a href="home.html" class="flex flex-col items-center leading-none">
+                <span class="text-2xl md:text-3xl font-serif tracking-widest text-white">EXPERIENCE</span>
+                <span class="text-[9px] md:text-[11px] tracking-mega font-light mt-1 text-white/90 pl-[0.4em]">PAHANG</span>
+            </a>
+        </div>
+
+        <!-- Desktop Right Navigation & Actions -->
+        <div class="hidden lg:flex items-center justify-end space-x-10 text-[13px] uppercase tracking-widest-extra font-medium z-10">
+            <button id="btn-origin" class="nav-link text-white/80 hover:text-white transition-colors duration-300 focus:outline-none uppercase tracking-widest-extra">Origin</button>
+            <button id="btn-plan" class="nav-link text-white/80 hover:text-white transition-colors duration-300 focus:outline-none uppercase tracking-widest-extra">Plan</button>
+        </div>
+
+        <!-- Mobile Hamburger Menu Button -->
+        <div class="lg:hidden ml-auto z-10">
+            <button id="mobile-menu-btn" aria-label="Toggle Mobile Menu" class="flex flex-col justify-center items-center w-8 h-8 space-y-1.5 focus:outline-none relative z-50">
+                <span class="block w-6 h-[1px] bg-white transition-transform duration-300 origin-center"></span>
+                <span class="block w-6 h-[1px] bg-white transition-transform duration-300 origin-center"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Overlay (Repaired) -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-[#0B1220] z-[45] flex flex-col justify-center items-center opacity-0 pointer-events-none transition-opacity duration-500 lg:hidden">
+        <nav class="flex flex-col items-center space-y-10 text-center">
+            <button class="mobile-nav-btn text-2xl font-serif text-white tracking-widest" data-target="wander">Wander</button>
+            <button class="mobile-nav-btn text-2xl font-serif text-white tracking-widest" data-target="unwind">Unwind</button>
+            <button class="mobile-nav-btn text-2xl font-serif text-white tracking-widest" data-target="origin">Origin</button>
+            <button class="mobile-nav-btn text-2xl font-serif text-white tracking-widest" data-target="plan">Plan</button>
+        </nav>
+    </div>
+
+    <main class="relative h-screen w-full overflow-hidden bg-gray-900">
+        <!-- High-quality Background Video -->
+        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover">
+            <source src="visual/videoplayback.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        
+        <!-- Sophisticated Gradient Overlays for depth and text legibility -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/10 to-transparent h-48"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+        <div class="absolute inset-0 bg-black/20 mix-blend-overlay"></div>
+
+        <div class="relative z-10 h-full flex flex-col justify-center items-center text-center px-4 pt-16">
+            <!-- Subheading -->
+            <p class="text-[9px] md:text-[11px] uppercase tracking-mega mb-6 text-white/80 font-light animate-fade-in-up delay-100">
+                The Sanctuary of Rainforests, Highlands & Isles
+            </p>
+            
+            <!-- Main Headline -->
+            <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.1] font-serif mb-10 text-white font-normal drop-shadow-2xl animate-fade-in-up delay-300">
+                Where every journey <br class="hidden sm:block">
+                <span class="italic font-light">becomes a story</span>
+            </h1>
+        </div>
+    </main>
+
+    <!-- Content Section: Introduction -->
+    <section class="relative w-full bg-white py-32 md:py-48 px-6 md:px-12 flex flex-col items-center justify-center text-center z-20">
+        <div class="max-w-4xl mx-auto flex flex-col items-center">
+            <div class="w-[1px] h-20 bg-gradient-to-b from-black/0 via-black/20 to-black/0 mb-12 scroll-reveal"></div>
+
+            <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-black mb-14 font-normal leading-tight tracking-wide scroll-reveal" style="transition-delay: 100ms;">
+                Find Your Way to Pahang
+            </h2>
+            
+            <div class="space-y-8 text-black/70 text-base sm:text-lg md:text-xl lg:text-[22px] font-light leading-relaxed max-w-3xl">
+                <p class="scroll-reveal" style="transition-delay: 250ms;">
+                    There are places you visit, and places you remember.
+                </p>
+                <p class="scroll-reveal" style="transition-delay: 400ms;">
+                    Pahang is a land of contrasts — cool highlands and tropical shores, ancient forests and living heritage, quiet retreats and unforgettable adventures.
+                </p>
+                <p class="scroll-reveal" style="transition-delay: 550ms;">
+                    Through Experience Pahang, discover the landscapes, flavours, stories and people that give the destination its soul.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Section: Places Worth Finding -->
+    <section class="relative w-full bg-white pb-32 md:pb-48 px-6 md:px-12 flex flex-col items-center justify-center z-20 overflow-hidden">
+        <div class="max-w-[1400px] w-full mx-auto">
+            <div class="flex flex-col items-center text-center mb-20 md:mb-28">
+                <div class="w-[1px] h-20 bg-gradient-to-b from-black/0 via-black/20 to-black/0 mb-12 scroll-reveal"></div>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-black mb-6 font-normal tracking-wide scroll-reveal" style="transition-delay: 100ms;">
+                    Places Worth Finding
+                </h2>
+                <p class="text-base md:text-lg text-black/50 font-light tracking-wide scroll-reveal" style="transition-delay: 250ms;">
+                    Three sides of Pahang. Three journeys waiting to be taken.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+                <!-- Taman Negara Card -->
+                <div class="group flex flex-col items-start cursor-pointer scroll-reveal md:col-span-2" style="transition-delay: 300ms;">
+                    <div class="w-full aspect-[4/5] md:aspect-[2/1] overflow-hidden mb-8 relative">
+                        <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                        <img src="visual/nationalpark.jpg" alt="Taman Negara Rainforest" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[2s] ease-out">
+                    </div>
+                    
+                    <p class="text-[9px] md:text-[10px] uppercase tracking-widest-extra text-black/40 mb-5 font-medium">Rainforest · Wildlife · Adventure</p>
+                    
+                    <h3 class="text-3xl md:text-4xl font-serif text-black mb-2 group-hover:text-black/70 transition-colors duration-500">Taman Negara</h3>
+                    <p class="text-lg font-serif italic text-black/60 mb-5 font-light">Into the wild.</p>
+                    
+                    <p class="text-sm font-light text-black/60 leading-relaxed mb-8 flex-grow pr-4 md:max-w-2xl">
+                        Ancient rainforest, winding rivers and encounters with one of the world's oldest natural landscapes.
+                    </p>
+                    
+                    <div class="mt-auto panel-link-underline pb-1 text-[11px] uppercase tracking-widest font-medium text-black">
+                        Discover Taman Negara <span class="ml-1 font-serif text-sm relative top-[1px]">→</span>
+                    </div>
+                </div>
+
+                <!-- Cameron Highlands Card -->
+                <div class="group flex flex-col items-start cursor-pointer scroll-reveal" style="transition-delay: 500ms;">
+                    <div class="w-full aspect-[4/5] overflow-hidden mb-8 relative">
+                        <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                        <img src="visual/highland.jpg" alt="Cameron Highlands" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[2s] ease-out">
+                    </div>
+                    
+                    <p class="text-[9px] md:text-[10px] uppercase tracking-widest-extra text-black/40 mb-5 font-medium">Highlands · Nature · Flavours</p>
+                    
+                    <h3 class="text-3xl md:text-4xl font-serif text-black mb-2 group-hover:text-black/70 transition-colors duration-500">Cameron Highlands</h3>
+                    <p class="text-lg font-serif italic text-black/60 mb-5 font-light">Where the air feels different.</p>
+                    
+                    <p class="text-sm font-light text-black/60 leading-relaxed mb-8 flex-grow pr-4">
+                        Misty mornings, rolling tea fields, cool mountain air and a slower way of life.
+                    </p>
+                    
+                    <div class="mt-auto panel-link-underline pb-1 text-[11px] uppercase tracking-widest font-medium text-black">
+                        Discover Cameron Highlands <span class="ml-1 font-serif text-sm relative top-[1px]">→</span>
+                    </div>
+                </div>
+
+                <!-- Tioman Island Card -->
+                <div class="group flex flex-col items-start cursor-pointer scroll-reveal" style="transition-delay: 700ms;">
+                    <div class="w-full aspect-[4/5] overflow-hidden mb-8 relative">
+                        <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                        <img src="visual/island.jpg" alt="Tioman Island Coast" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[2s] ease-out">
+                    </div>
+                    
+                    <p class="text-[9px] md:text-[10px] uppercase tracking-widest-extra text-black/40 mb-5 font-medium">Island · Marine · Escape</p>
+                    
+                    <h3 class="text-3xl md:text-4xl font-serif text-black mb-2 group-hover:text-black/70 transition-colors duration-500">Tioman Island</h3>
+                    <p class="text-lg font-serif italic text-black/60 mb-5 font-light">Find your way to the sea.</p>
+                    
+                    <p class="text-sm font-light text-black/60 leading-relaxed mb-8 flex-grow pr-4">
+                        Clear waters, forested shores and island days made for slowing down.
+                    </p>
+                    
+                    <div class="mt-auto panel-link-underline pb-1 text-[11px] uppercase tracking-widest font-medium text-black">
+                        Discover Tioman Island <span class="ml-1 font-serif text-sm relative top-[1px]">→</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Section: Ways to Wander -->
+    <section class="relative w-full bg-[#0B1220] pt-32 md:pt-48 pb-0 flex flex-col items-center justify-center z-20 overflow-hidden text-white">
+        <div class="px-6 md:px-12 max-w-[1400px] w-full mx-auto flex flex-col items-center text-center mb-20 md:mb-28">
+            <div class="w-[1px] h-20 bg-gradient-to-b from-white/0 via-white/30 to-white/0 mb-12 scroll-reveal"></div>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 font-normal tracking-wide scroll-reveal" style="transition-delay: 100ms;">
+                Ways to Wander
+            </h2>
+            <p class="text-base md:text-lg text-white/50 font-light tracking-wide scroll-reveal" style="transition-delay: 250ms;">
+                Go beyond the places. Find your own way to experience Pahang.
+            </p>
+        </div>
+
+        <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-0">
+            <!-- Adventure Box -->
+            <div class="group relative aspect-square md:aspect-auto md:h-[50vh] lg:h-[650px] overflow-hidden cursor-pointer scroll-reveal" style="transition-delay: 300ms;">
+                <img src="visual/rafting.jpg" alt="Chase Adventure" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[2s] ease-out">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/10 group-hover:from-black/95 transition-colors duration-700"></div>
+                <div class="absolute inset-0 p-8 md:p-14 lg:p-20 flex flex-col justify-end text-left z-10">
+                    <div class="transform group-hover:-translate-y-3 transition-transform duration-700 ease-out">
+                        <h3 class="text-3xl md:text-4xl lg:text-5xl font-serif mb-4 text-white">Chase Adventure</h3>
+                        <p class="text-[9px] md:text-[10px] uppercase tracking-widest-extra text-white/70 font-medium">Hiking · Rafting · Diving · Outdoor</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Local Box -->
+            <div class="group relative aspect-square md:aspect-auto md:h-[50vh] lg:h-[650px] overflow-hidden cursor-pointer scroll-reveal" style="transition-delay: 400ms;">
+                <img src="visual/cafe.jpg" alt="Taste the Local" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[2s] ease-out">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/10 group-hover:from-black/95 transition-colors duration-700"></div>
+                <div class="absolute inset-0 p-8 md:p-14 lg:p-20 flex flex-col justify-end text-left z-10">
+                    <div class="transform group-hover:-translate-y-3 transition-transform duration-700 ease-out">
+                        <h3 class="text-3xl md:text-4xl lg:text-5xl font-serif mb-4 text-white">Taste the Local</h3>
+                        <p class="text-[9px] md:text-[10px] uppercase tracking-widest-extra text-white/70 font-medium">Food · Markets · Cafés · Flavours</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Culture Box -->
+            <div class="group relative aspect-square md:aspect-auto md:h-[50vh] lg:h-[650px] overflow-hidden cursor-pointer scroll-reveal" style="transition-delay: 300ms;">
+                <img src="visual/heritage.jpg" alt="Meet the Culture" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[2s] ease-out">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/10 group-hover:from-black/95 transition-colors duration-700"></div>
+                <div class="absolute inset-0 p-8 md:p-14 lg:p-20 flex flex-col justify-end text-left z-10">
+                    <div class="transform group-hover:-translate-y-3 transition-transform duration-700 ease-out">
+                        <h3 class="text-3xl md:text-4xl lg:text-5xl font-serif mb-4 text-white">Meet the Culture</h3>
+                        <p class="text-[9px] md:text-[10px] uppercase tracking-widest-extra text-white/70 font-medium">Heritage · Crafts · Communities</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wellness Box -->
+            <div class="group relative aspect-square md:aspect-auto md:h-[50vh] lg:h-[650px] overflow-hidden cursor-pointer scroll-reveal" style="transition-delay: 400ms;">
+                <img src="visual/retreat.jpg" alt="Slow Down" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[2s] ease-out">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/10 group-hover:from-black/95 transition-colors duration-700"></div>
+                <div class="absolute inset-0 p-8 md:p-14 lg:p-20 flex flex-col justify-end text-left z-10">
+                    <div class="transform group-hover:-translate-y-3 transition-transform duration-700 ease-out">
+                        <h3 class="text-3xl md:text-4xl lg:text-5xl font-serif mb-4 text-white">Slow Down</h3>
+                        <p class="text-[9px] md:text-[10px] uppercase tracking-widest-extra text-white/70 font-medium">Wellness · Spa · Retreats</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Section: Upcoming Events -->
+    <section class="relative w-full bg-white py-32 md:py-48 px-6 md:px-12 flex flex-col items-center justify-center z-20 overflow-hidden text-black">
+        <div class="max-w-[1200px] w-full mx-auto">
+            <div class="flex flex-col items-center text-center mb-20 md:mb-28">
+                <div class="w-[1px] h-20 bg-gradient-to-b from-black/0 via-black/20 to-black/0 mb-12 scroll-reveal"></div>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-black mb-6 font-normal tracking-wide scroll-reveal" style="transition-delay: 100ms;">
+                    Upcoming Events in Pahang
+                </h2>
+                <p class="text-base md:text-lg text-black/50 font-light tracking-wide max-w-2xl mx-auto scroll-reveal" style="transition-delay: 250ms;">
+                    Celebrate the flavours, traditions, creativity, and spirit of Pahang through events happening throughout the year.
+                </p>
+            </div>
+
+            <div class="flex flex-col border-t border-black/10">
+                <!-- Event 1 -->
+                <div class="group py-10 md:py-16 border-b border-black/10 flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-12 scroll-reveal cursor-pointer" style="transition-delay: 200ms;">
+                    <div class="md:w-1/4 flex flex-col">
+                        <p class="text-[10px] uppercase tracking-widest-extra text-black/40 font-medium">15–17 August 2026</p>
+                        <p class="text-[10px] uppercase tracking-widest-extra text-black font-medium mt-2">Kuantan</p>
+                    </div>
+                    <div class="md:w-1/2">
+                        <h3 class="text-2xl md:text-3xl font-serif text-black mb-3 group-hover:text-black/50 transition-colors duration-500">Pahang Food Festival</h3>
+                        <p class="text-sm font-light text-black/60 leading-relaxed pr-4">
+                            Discover local flavours, culinary showcases, and traditional delicacies from across Pahang.
+                        </p>
+                    </div>
+                    <div class="md:w-1/4 md:text-right flex md:justify-end">
+                        <div class="panel-link-underline pb-1 text-[11px] uppercase tracking-widest font-medium text-black">
+                            Explore Event <span class="ml-1 font-serif text-sm relative top-[1px]">→</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 2 -->
+                <div class="group py-10 md:py-16 border-b border-black/10 flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-12 scroll-reveal cursor-pointer" style="transition-delay: 350ms;">
+                    <div class="md:w-1/4 flex flex-col">
+                        <p class="text-[10px] uppercase tracking-widest-extra text-black/40 font-medium">12–14 October 2026</p>
+                        <p class="text-[10px] uppercase tracking-widest-extra text-black font-medium mt-2">Tioman Island</p>
+                    </div>
+                    <div class="md:w-1/2">
+                        <h3 class="text-2xl md:text-3xl font-serif text-black mb-3 group-hover:text-black/50 transition-colors duration-500">Tioman Surfing Festival</h3>
+                        <p class="text-sm font-light text-black/60 leading-relaxed pr-4">
+                            Experience exciting surfing competitions alongside beach activities, live entertainment, and the laid-back spirit of island life.
+                        </p>
+                    </div>
+                    <div class="md:w-1/4 md:text-right flex md:justify-end">
+                        <div class="panel-link-underline pb-1 text-[11px] uppercase tracking-widest font-medium text-black">
+                            Explore Event <span class="ml-1 font-serif text-sm relative top-[1px]">→</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 3 -->
+                <div class="group py-10 md:py-16 border-b border-black/10 flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-12 scroll-reveal cursor-pointer" style="transition-delay: 500ms;">
+                    <div class="md:w-1/4 flex flex-col">
+                        <p class="text-[10px] uppercase tracking-widest-extra text-black/40 font-medium">3–7 December 2026</p>
+                        <p class="text-[10px] uppercase tracking-widest-extra text-black font-medium mt-2">Pekan</p>
+                    </div>
+                    <div class="md:w-1/2">
+                        <h3 class="text-2xl md:text-3xl font-serif text-black mb-3 group-hover:text-black/50 transition-colors duration-500">Royal Pahang Arts Festival</h3>
+                        <p class="text-sm font-light text-black/60 leading-relaxed pr-4">
+                            Celebrate traditional performances, cultural exhibitions, local craftsmanship, and the rich heritage of the Pahang Sultanate.
+                        </p>
+                    </div>
+                    <div class="md:w-1/4 md:text-right flex md:justify-end">
+                        <div class="panel-link-underline pb-1 text-[11px] uppercase tracking-widest font-medium text-black">
+                            Explore Event <span class="ml-1 font-serif text-sm relative top-[1px]">→</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-20 flex justify-center scroll-reveal" style="transition-delay: 600ms;">
+                <a href="#" class="group relative inline-flex items-center justify-center px-10 py-5 border border-black overflow-hidden transition-all duration-700">
+                    <div class="absolute inset-0 w-0 bg-[#202A3D] transition-all duration-[600ms] ease-out group-hover:w-full"></div>
+                    <span class="relative z-10 text-[11px] uppercase tracking-widest font-medium text-black group-hover:text-white transition-colors duration-700 flex items-center">
+                        View All Events <span class="ml-3 font-serif text-lg leading-none relative top-[1px]">→</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Section: Stories from Pahang -->
+    <section class="relative w-full bg-[#f9f9f9] py-32 md:py-48 px-6 md:px-12 flex flex-col items-center justify-center z-20 overflow-hidden text-black">
+        <div class="max-w-[1400px] w-full mx-auto">
+            <div class="flex flex-col items-center text-center mb-20 md:mb-28">
+                <div class="w-[1px] h-20 bg-gradient-to-b from-black/0 via-black/20 to-black/0 mb-12 scroll-reveal"></div>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-black mb-6 font-normal tracking-wide scroll-reveal" style="transition-delay: 100ms;">
+                    Stories from Pahang
+                </h2>
+                <p class="text-base md:text-lg text-black/50 font-light tracking-wide max-w-2xl mx-auto scroll-reveal" style="transition-delay: 250ms;">
+                    Meet the people, traditions and places that give Pahang its character.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
+                <!-- Story 1 -->
+                <div class="group flex flex-col cursor-pointer scroll-reveal" style="transition-delay: 200ms;">
+                    <div class="w-full aspect-[3/4] overflow-hidden mb-8 relative">
+                        <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                        <img src="visual/SP1.jpg" alt="The People Behind Pahang" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[2s] ease-out">
+                    </div>
+                    <p class="text-[9px] md:text-[10px] uppercase tracking-widest-extra text-black/40 mb-4 font-medium">Community · Makers</p>
+                    <h3 class="text-2xl md:text-3xl font-serif text-black mb-4 group-hover:text-black/60 transition-colors duration-500">The People Behind Pahang</h3>
+                    <p class="text-sm font-light text-black/60 leading-relaxed mb-8 flex-grow">
+                        Meet the local makers, guides, chefs, artists and communities who bring Pahang to life.
+                    </p>
+                    <div class="mt-auto panel-link-underline pb-1 text-[11px] uppercase tracking-widest font-medium text-black w-fit">
+                        Read Story <span class="ml-1 font-serif text-sm relative top-[1px]">→</span>
+                    </div>
+                </div>
+
+                <!-- Story 2 -->
+                <div class="group flex flex-col cursor-pointer scroll-reveal" style="transition-delay: 400ms;">
+                    <div class="w-full aspect-[3/4] overflow-hidden mb-8 relative">
+                        <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                        <img src="visual/SP2.jpg" alt="Stories That Stay" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[2s] ease-out">
+                    </div>
+                    <p class="text-[9px] md:text-[10px] uppercase tracking-widest-extra text-black/40 mb-4 font-medium">Heritage · Traditions</p>
+                    <h3 class="text-2xl md:text-3xl font-serif text-black mb-4 group-hover:text-black/60 transition-colors duration-500">Stories That Stay</h3>
+                    <p class="text-sm font-light text-black/60 leading-relaxed mb-8 flex-grow">
+                        Discover the heritage, traditions and stories passed down through generations.
+                    </p>
+                    <div class="mt-auto panel-link-underline pb-1 text-[11px] uppercase tracking-widest font-medium text-black w-fit">
+                        Read Story <span class="ml-1 font-serif text-sm relative top-[1px]">→</span>
+                    </div>
+                </div>
+
+                <!-- Story 3 -->
+                <div class="group flex flex-col cursor-pointer scroll-reveal" style="transition-delay: 600ms;">
+                    <div class="w-full aspect-[3/4] overflow-hidden mb-8 relative">
+                        <div class="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                        <img src="visual/SP3.jpg" alt="A Taste of Pahang" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[2s] ease-out">
+                    </div>
+                    <p class="text-[9px] md:text-[10px] uppercase tracking-widest-extra text-black/40 mb-4 font-medium">Cuisine · Flavours</p>
+                    <h3 class="text-2xl md:text-3xl font-serif text-black mb-4 group-hover:text-black/60 transition-colors duration-500">A Taste of Pahang</h3>
+                    <p class="text-sm font-light text-black/60 leading-relaxed mb-8 flex-grow">
+                        Explore the flavours, ingredients and food traditions that make Pahang's cuisine unique.
+                    </p>
+                    <div class="mt-auto panel-link-underline pb-1 text-[11px] uppercase tracking-widest font-medium text-black w-fit">
+                        Read Story <span class="ml-1 font-serif text-sm relative top-[1px]">→</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-24 flex justify-center scroll-reveal" style="transition-delay: 700ms;">
+                <a href="#" class="group relative inline-flex items-center justify-center px-10 py-5 border border-black overflow-hidden transition-all duration-700">
+                    <div class="absolute inset-0 w-0 bg-[#0B1220] transition-all duration-[600ms] ease-out group-hover:w-full"></div>
+                    <span class="relative z-10 text-[11px] uppercase tracking-widest font-medium text-black group-hover:text-white transition-colors duration-700 flex items-center">
+                        Read All Stories <span class="ml-3 font-serif text-lg leading-none relative top-[1px]">→</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Section: Gallery -->
+    <section class="relative w-full bg-[#0B1220] py-32 md:py-48 px-6 md:px-12 flex flex-col items-center justify-center z-20 overflow-hidden text-white">
+        <div class="max-w-[1400px] w-full mx-auto">
+            <div class="flex flex-col items-center text-center mb-16 md:mb-24">
+                <div class="w-[1px] h-20 bg-gradient-to-b from-white/0 via-white/30 to-white/0 mb-12 scroll-reveal"></div>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 font-normal tracking-wide scroll-reveal" style="transition-delay: 100ms;">
+                    Pahang in View
+                </h2>
+                <p class="text-base md:text-lg text-white/50 font-light tracking-wide max-w-2xl mx-auto scroll-reveal" style="transition-delay: 250ms;">
+                    See Pahang through the eyes of those who wander it.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 auto-rows-[200px] md:auto-rows-[300px]">
+                <div class="group relative overflow-hidden cursor-pointer col-span-2 row-span-2 scroll-reveal" style="transition-delay: 200ms;">
+                    <img src="visual/nationalpark.jpg" alt="Landscapes" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[2s] ease-out">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/60 transition-colors duration-700"></div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                        <span class="text-[11px] md:text-sm uppercase tracking-widest-extra font-medium text-white">Landscapes</span>
+                    </div>
+                </div>
+                
+                <div class="group relative overflow-hidden cursor-pointer col-span-1 row-span-1 scroll-reveal" style="transition-delay: 300ms;">
+                    <img src="visual/highland.jpg" alt="Highlands" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[2s] ease-out">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/60 transition-colors duration-700"></div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                        <span class="text-[9px] md:text-[11px] uppercase tracking-widest-extra font-medium text-white">Highlands</span>
+                    </div>
+                </div>
+
+                <div class="group relative overflow-hidden cursor-pointer col-span-1 row-span-1 scroll-reveal" style="transition-delay: 400ms;">
+                    <img src="visual/island.jpg" alt="Islands" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[2s] ease-out">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/60 transition-colors duration-700"></div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                        <span class="text-[9px] md:text-[11px] uppercase tracking-widest-extra font-medium text-white">Islands</span>
+                    </div>
+                </div>
+
+                <div class="group relative overflow-hidden cursor-pointer col-span-1 row-span-1 scroll-reveal" style="transition-delay: 500ms;">
+                    <img src="visual/PV-WILD.jpg" alt="Wildlife" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[2s] ease-out">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/60 transition-colors duration-700"></div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                        <span class="text-[9px] md:text-[11px] uppercase tracking-widest-extra font-medium text-white">Wildlife</span>
+                    </div>
+                </div>
+
+                <div class="group relative overflow-hidden cursor-pointer col-span-1 row-span-1 scroll-reveal" style="transition-delay: 600ms;">
+                    <img src="visual/PV-FOOD.jpg" alt="Food" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[2s] ease-out">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/60 transition-colors duration-700"></div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                        <span class="text-[9px] md:text-[11px] uppercase tracking-widest-extra font-medium text-white">Food</span>
+                    </div>
+                </div>
+
+                <div class="group relative overflow-hidden cursor-pointer col-span-2 md:col-span-2 row-span-1 scroll-reveal" style="transition-delay: 200ms;">
+                    <img src="visual/PV-PPL.jpg" alt="People" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[2s] ease-out">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/60 transition-colors duration-700"></div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                        <span class="text-[11px] md:text-sm uppercase tracking-widest-extra font-medium text-white">People</span>
+                    </div>
+                </div>
+
+                <div class="group relative overflow-hidden cursor-pointer col-span-1 row-span-1 scroll-reveal" style="transition-delay: 300ms;">
+                    <img src="visual/PV-CULTURE.jpg" alt="Culture" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[2s] ease-out">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/60 transition-colors duration-700"></div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                        <span class="text-[9px] md:text-[11px] uppercase tracking-widest-extra font-medium text-white">Culture</span>
+                    </div>
+                </div>
+
+                <div class="group relative overflow-hidden cursor-pointer col-span-1 row-span-1 scroll-reveal" style="transition-delay: 400ms;">
+                    <img src="visual/PV-ARCH.jpg" alt="Architecture" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[2s] ease-out">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/60 transition-colors duration-700"></div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                        <span class="text-[9px] md:text-[11px] uppercase tracking-widest-extra font-medium text-white">Architecture</span>
+                    </div>
+                </div>
+
+                <div class="group relative overflow-hidden cursor-pointer col-span-2 md:col-span-4 row-span-1 scroll-reveal" style="transition-delay: 200ms;">
+                    <img src="visual/PV-CINE.jpg" alt="Everyday Moments" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[2s] ease-out">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/60 transition-colors duration-700"></div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                        <span class="text-[11px] md:text-sm uppercase tracking-widest-extra font-medium text-white">Everyday Moments</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-20 flex justify-center scroll-reveal" style="transition-delay: 500ms;">
+                 <a href="#" class="group relative inline-flex items-center justify-center px-10 py-5 border border-white overflow-hidden transition-all duration-700">
+                    <div class="absolute inset-0 w-0 bg-white transition-all duration-[600ms] ease-out group-hover:w-full"></div>
+                    <span class="relative z-10 text-[11px] uppercase tracking-widest font-medium text-white group-hover:text-black transition-colors duration-700 flex items-center">
+                        View Gallery <span class="ml-3 font-serif text-lg leading-none relative top-[1px]">→</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscribe Section -->
+    <section class="relative w-full bg-white py-32 md:py-48 px-6 md:px-12 flex flex-col items-center justify-center z-20 overflow-hidden text-black border-t border-black/5">
+        <div class="max-w-[800px] w-full mx-auto text-center flex flex-col items-center">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-black mb-6 font-normal tracking-wide scroll-reveal" style="transition-delay: 100ms;">
+                Stay Curious. Stay Connected.
+            </h2>
+            <p class="text-base md:text-lg text-black/60 font-light tracking-wide mb-20 scroll-reveal" style="transition-delay: 200ms;">
+                Get the latest stories, places, events and travel inspiration from Pahang, delivered to your inbox.
+            </p>
+            
+            <form action="#" method="POST" class="w-full flex flex-col md:flex-row items-end gap-6 md:gap-10 mb-10 scroll-reveal" style="transition-delay: 300ms;">
+                <div class="w-full md:flex-1 relative">
+                    <label class="absolute -top-6 left-0 text-[9px] uppercase tracking-widest-extra text-black/40 font-medium">Email Address</label>
+                    <input type="email" placeholder="Your email address" required class="w-full bg-transparent border-b border-black/20 py-4 px-0 text-lg font-light text-black placeholder-black/30 focus:outline-none focus:border-black transition-colors rounded-none">
+                </div>
+                <button type="submit" class="group relative inline-flex items-center justify-center px-10 py-4 border border-black overflow-hidden transition-all duration-700 whitespace-nowrap w-full md:w-auto">
+                    <div class="absolute inset-0 w-0 bg-[#0B1220] transition-all duration-[600ms] ease-out group-hover:w-full"></div>
+                    <span class="relative z-10 text-[11px] uppercase tracking-widest font-medium text-black group-hover:text-white transition-colors duration-700 flex items-center">
+                        Subscribe <span class="ml-3 font-serif text-lg leading-none relative top-[1px]">→</span>
+                    </span>
+                </button>
+            </form>
+            
+            <p class="text-[9px] uppercase tracking-widest-extra text-black/40 font-medium scroll-reveal" style="transition-delay: 400ms;">
+                By subscribing, you agree to receive updates from Experience Pahang.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative w-full min-h-screen bg-[#0B1220] flex flex-col px-6 md:px-12 pb-8 md:pb-12 z-20 text-white overflow-x-hidden">
+        <!-- Cinematic Centerpiece -->
+        <div class="flex-1 flex flex-col items-center justify-center text-center w-full z-10 scroll-reveal py-20">
+            <h2 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[8.5rem] leading-[1.05] tracking-tight font-light text-white">
+                A Window Into <br />
+                <span class="italic text-white/70">Pahang</span>
+            </h2>
+        </div>
+
+        <!-- Bottom Grid & Navigation -->
+        <div class="w-full max-w-[1600px] mx-auto z-10 flex-shrink-0">
+            <div class="grid grid-cols-2 md:grid-cols-12 gap-y-12 gap-x-6 border-t border-white/10 pt-12 pb-12 scroll-reveal" style="transition-delay: 100ms;">
+                
+                <!-- Brand Column -->
+                <div class="col-span-2 md:col-span-4 flex flex-col justify-between md:pr-8">
+                    <div class="flex flex-col items-start leading-none mb-6">
+                        <span class="text-2xl md:text-3xl font-serif tracking-[0.2em] text-white">EXPERIENCE</span>
+                        <span class="text-[9px] md:text-[10px] tracking-[0.4em] font-light mt-3 text-white/70 pl-[0.4em]">PAHANG</span>
+                    </div>
+                    <p class="text-sm md:text-base font-light text-white/50 max-w-[280px] leading-relaxed">
+                        Where every journey becomes a story. Discover the soul of Pahang.
+                    </p>
+                </div>
+
+                <!-- Explore Links -->
+                <div class="col-span-1 md:col-span-2 flex flex-col md:pl-8">
+                    <h4 class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/40 mb-6 font-medium">Explore</h4>
+                    <div class="space-y-4 text-sm font-light tracking-widest text-white/80">
+                        <a href="#" class="block w-fit hover:text-[#C5A059] hover:translate-x-1 transition-all duration-300">Events</a>
+                        <a href="story.html" class="block w-fit hover:text-[#C5A059] hover:translate-x-1 transition-all duration-300">Stories</a>
+                        <a href="#" class="block w-fit hover:text-[#C5A059] hover:translate-x-1 transition-all duration-300">Gallery</a>
+                    </div>
+                </div>
+
+                <!-- Relevant Links -->
+                <div class="col-span-1 md:col-span-2 flex flex-col">
+                    <h4 class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/40 mb-6 font-medium">Relevant</h4>
+                    <div class="space-y-4 text-sm font-light tracking-widest text-white/80">
+                        <a href="#" class="block w-fit hover:text-[#C5A059] hover:translate-x-1 transition-all duration-300">Contact Us</a>
+                        <a href="#" class="block w-fit hover:text-[#C5A059] hover:translate-x-1 transition-all duration-300">Press &amp; News</a>
+                        <a href="#" class="block w-fit hover:text-[#C5A059] hover:translate-x-1 transition-all duration-300">Careers</a>
+                    </div>
+                </div>
+
+                <!-- Connect & Back to Top -->
+                <div class="col-span-2 md:col-span-4 flex flex-col items-start md:items-end justify-between mt-4 md:mt-0">
+                    <div class="w-full flex flex-col md:items-end mb-10 md:mb-0">
+                        <h4 class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/40 mb-6 font-medium text-left md:text-right">Connect</h4>
+                        <div class="flex flex-wrap gap-x-6 gap-y-3 text-sm font-light tracking-widest text-white/80">
+                            <a href="#" class="hover:text-[#C5A059] transition-colors duration-300 uppercase">Instagram</a>
+                            <a href="#" class="hover:text-[#C5A059] transition-colors duration-300 uppercase">YouTube</a>
+                            <a href="#" class="hover:text-[#C5A059] transition-colors duration-300 uppercase">TikTok</a>
+                        </div>
+                    </div>
+
+                    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Scroll to top" class="flex items-center space-x-3 text-white/50 hover:text-[#C5A059] transition-all duration-300 group focus:outline-none uppercase tracking-widest text-xs">
+                        <span>To The Top</span>
+                        <span class="relative overflow-hidden flex items-center justify-center w-8 h-8 rounded-full border border-white/20 group-hover:border-[#C5A059] transition-colors">
+                            <span class="absolute font-serif text-sm group-hover:-translate-y-6 transition-transform duration-500">↑</span>
+                            <span class="absolute font-serif text-sm translate-y-6 group-hover:translate-y-0 transition-transform duration-500">↑</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Legal / Copyright Bar -->
+            <div class="flex flex-col-reverse md:flex-row justify-between items-center pt-8 pb-2 border-t border-white/10 text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-white/40 font-medium scroll-reveal" style="transition-delay: 100ms;">
+                <p class="mt-6 md:mt-0 text-center md:text-left">
+                    © 2026 Experience Pahang. All rights reserved.
+                </p>
+                <div class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+                    <a href="#" class="hover:text-white transition-colors duration-300">Terms of Use</a>
+                    <a href="#" class="hover:text-white transition-colors duration-300">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors duration-300">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Overlay & Sliding Panels -->
+    <div id="panel-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] opacity-0 pointer-events-none transition-opacity duration-700 ease-out"></div>
+
+    <!-- LEFT SIDE PANEL -->
+    <div id="panel-left" class="fixed top-0 left-0 w-full md:w-1/3 h-full bg-white z-[70] transform -translate-x-[150%] transition-transform duration-700 cubic-bezier-panel flex flex-col justify-center px-12 md:px-20 shadow-2xl border-r border-black/5">
+        <button aria-label="Close Panel" class="close-panel absolute top-10 right-10 md:right-12 text-black/50 hover:text-black transition-colors duration-300 focus:outline-none">
+            <svg class="w-8 h-8 font-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+        <div class="mb-16 opacity-0 translate-y-6 transition-all duration-700 panel-header-left">
+            <span id="panel-title-left" class="text-[10px] uppercase tracking-widest-extra text-black/40 border-b border-black/20 pb-3">Wander</span>
+        </div>
+
+        <nav id="nav-wander" class="menu-group flex flex-col space-y-10">
+            <a href="nature.html" data-target="img-nature" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Rainforest &amp; Nature</a>
+            <a href="#" data-target="img-highland" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Farms &amp; Flavours</a>
+            <a href="#" data-target="img-coast" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Islands &amp; Beaches</a>
+            <a href="#" data-target="img-culture" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Culture &amp; Heritage</a>
+            <a href="#" data-target="img-adventure" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Adventures &amp; Outdoor</a>
+        </nav>
+
+        <nav id="nav-unwind" class="menu-group hidden flex-col space-y-10">
+            <a href="eat.html" data-target="img-eat" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Eat &amp; Drink</a>
+            <a href="#" data-target="img-stay" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Stay</a>
+            <a href="#" data-target="img-spa" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Spa &amp; Wellness</a>
+            <a href="#" data-target="img-lifestyle" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Lifestyle</a>
+            <a href="#" data-target="img-family" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Family Fun</a>
+        </nav>
+    </div>
+
+    <!-- RIGHT SIDE PANEL -->
+    <div id="panel-right" class="fixed top-0 right-0 w-full md:w-1/3 h-full bg-white z-[70] transform translate-x-[150%] transition-transform duration-700 cubic-bezier-panel flex flex-col justify-center px-12 md:px-20 shadow-2xl border-l border-black/5">
+        <button aria-label="Close Panel" class="close-panel absolute top-10 left-10 md:left-12 text-black/50 hover:text-black transition-colors duration-300 focus:outline-none">
+            <svg class="w-8 h-8 font-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+        <div class="mb-16 opacity-0 translate-y-6 transition-all duration-700 panel-header-right text-right">
+            <span id="panel-title-right" class="text-[10px] uppercase tracking-widest-extra text-black/40 border-b border-black/20 pb-3 inline-block">Origin</span>
+        </div>
+
+        <nav id="nav-origin" class="menu-group hidden flex-col space-y-10 text-right items-end">
+            <a href="story.html" data-target="img-story" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Our Story</a>
+            <a href="#" data-target="img-impact" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Impact</a>
+            <a href="#" data-target="img-partnership" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Partnership</a>
+            <a href="#" data-target="img-vision" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Vision</a>
+            <a href="#" data-target="img-involved" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Get Involved</a>
+        </nav>
+
+        <nav id="nav-plan" class="menu-group hidden flex-col space-y-10 text-right items-end">
+            <a href="transport.html" data-target="img-transport" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Transport</a>
+            <a href="weather.html" data-target="img-weather" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Weather &amp; Climate</a>
+            <a href="essential.html" data-target="img-fact" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Essential Fact</a>
+            <a href="calendar.html" data-target="img-calendar" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Calendar</a>
+            <a href="maps.html" data-target="img-map" class="panel-item panel-content panel-link-underline text-3xl md:text-4xl font-serif text-black/80 hover:text-black transition-all duration-700 opacity-0 translate-y-6">Map</a>
+        </nav>
+    </div>
+
+    <!-- LEFT IMAGE PANEL -->
+    <div id="image-panel-left" class="fixed top-0 left-1/3 w-1/3 h-full z-[65] transform -translate-x-full opacity-0 transition-all duration-700 cubic-bezier-panel overflow-hidden pointer-events-none hidden md:block">
+        <div class="absolute inset-0 bg-black/10 z-10"></div>
+        <img id="img-nature" src="visual/hero/home-w1.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Rainforest and Nature">
+        <img id="img-highland" src="visual/hero/home-w2.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Highland">
+        <img id="img-coast" src="visual/hero/home-w3.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Coast and Island">
+        <img id="img-culture" src="visual/hero/home-w4.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Culture and Heritage">
+        <img id="img-adventure" src="visual/hero/home-w5.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Outdoor Adventure">
+        
+        <img id="img-eat" src="visual/hero/home-u1.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Eat and Drink">
+        <img id="img-stay" src="visual/hero/home-u2.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Stay">
+        <img id="img-spa" src="visual/hero/home-u3.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Spa and Wellness">
+        <img id="img-lifestyle" src="visual/hero/home-u4.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Lifestyle">
+        <img id="img-family" src="visual/hero/home-u5.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Family Fun">
+    </div>
+
+    <!-- RIGHT IMAGE PANEL -->
+    <div id="image-panel-right" class="fixed top-0 right-1/3 w-1/3 h-full z-[65] transform translate-x-full opacity-0 transition-all duration-700 cubic-bezier-panel overflow-hidden pointer-events-none hidden md:block">
+        <div class="absolute inset-0 bg-black/10 z-10"></div>
+        <img id="img-story" src="visual/hero/home-o1.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Our Story">
+        <img id="img-impact" src="visual/hero/home-o2.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Impact">
+        <img id="img-partnership" src="visual/hero/home-o3.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Partnership">
+        <img id="img-vision" src="visual/hero/home-o4.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Vision">
+        <img id="img-involved" src="visual/hero/home-o5.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Get Involved">
+        
+        <img id="img-transport" src="visual/hero/home-p1.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Transport">
+        <img id="img-weather" src="visual/hero/home-p2.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Weather and Climate">
+        <img id="img-fact" src="visual/hero/home-p3.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Essential Fact">
+        <img id="img-calendar" src="visual/hero/home-p4.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Calendar">
+        <img id="img-map" src="visual/hero/home-p5.jpg" class="panel-img absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out opacity-0 scale-105" alt="Map">
+    </div>
+
+    <script>
+        // --- Mobile Menu Logic ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        let isMobileMenuOpen = false;
+
+        function toggleMobileMenu() {
+            isMobileMenuOpen = !isMobileMenuOpen;
+            const spans = mobileMenuBtn.querySelectorAll('span');
+            
+            if (isMobileMenuOpen) {
+                // Animate hamburger to X
+                spans[0].style.transform = 'translateY(3.5px) rotate(45deg)';
+                spans[1].style.transform = 'translateY(-3.5px) rotate(-45deg)';
+                // Show fullscreen menu
+                mobileMenuOverlay.classList.remove('opacity-0', 'pointer-events-none');
+                mobileMenuOverlay.classList.add('opacity-100', 'pointer-events-auto');
+            } else {
+                // Revert to hamburger
+                spans[0].style.transform = 'translateY(0) rotate(0)';
+                spans[1].style.transform = 'translateY(0) rotate(0)';
+                // Hide fullscreen menu
+                mobileMenuOverlay.classList.remove('opacity-100', 'pointer-events-auto');
+                mobileMenuOverlay.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+        // Allow mobile navigation buttons to open specific side panels
+        document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = btn.getAttribute('data-target');
+                toggleMobileMenu(); // Close the fullscreen mobile menu
+                setTimeout(() => {
+                    openPanel(target); // Open the requested panel
+                }, 400); // Wait for fade out
+            });
+        });
+
+        // --- Multi-Panel Logic ---
+        const menuConfig = {
+            wander: { side: 'left', title: 'Wander' },
+            unwind: { side: 'left', title: 'Unwind' },
+            origin: { side: 'right', title: 'Origin' },
+            plan: { side: 'right', title: 'Plan' }
+        };
+
+        const panelOverlay = document.getElementById('panel-overlay');
+        const panelLeft = document.getElementById('panel-left');
+        const panelRight = document.getElementById('panel-right');
+        const imgPanelLeft = document.getElementById('image-panel-left');
+        const imgPanelRight = document.getElementById('image-panel-right');
+        
+        const panelTitleLeft = document.getElementById('panel-title-left');
+        const panelTitleRight = document.getElementById('panel-title-right');
+
+        function openPanel(menuId) {
+            const config = menuConfig[menuId];
+            
+            // 1. Hide all menu groups
+            document.querySelectorAll('.menu-group').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('flex');
+            });
+            
+            // 2. Show the specific menu group requested
+            const targetNav = document.getElementById(`nav-${menuId}`);
+            if(!targetNav) return;
+            
+            targetNav.classList.remove('hidden');
+            targetNav.classList.add('flex');
+
+            // 3. Reset text animations
+            document.querySelectorAll('.panel-content').forEach(el => {
+                el.classList.remove('opacity-100', 'translate-y-0');
+                el.classList.add('opacity-0', 'translate-y-6');
+            });
+
+            // 4. Show dark overlay
+            panelOverlay.classList.remove('opacity-0', 'pointer-events-none');
+            panelOverlay.classList.add('opacity-100', 'pointer-events-auto');
+
+            // 5. Slide in the correct side panel
+            if (config.side === 'left') {
+                panelTitleLeft.textContent = config.title;
+                panelLeft.classList.remove('-translate-x-[150%]');
+                panelLeft.classList.add('translate-x-0');
+            } else {
+                panelTitleRight.textContent = config.title;
+                panelRight.classList.remove('translate-x-[150%]');
+                panelRight.classList.add('translate-x-0');
+            }
+
+            // 6. Staggered fade in for text
+            setTimeout(() => {
+                targetNav.querySelectorAll('.panel-content').forEach((el, index) => {
+                    setTimeout(() => {
+                        el.classList.remove('opacity-0', 'translate-y-6');
+                        el.classList.add('opacity-100', 'translate-y-0');
+                    }, index * 80);
+                });
+                
+                const headerClass = config.side === 'left' ? '.panel-header-left' : '.panel-header-right';
+                const headerElement = document.querySelector(headerClass);
+                if(headerElement) {
+                    headerElement.classList.remove('opacity-0', 'translate-y-6');
+                    headerElement.classList.add('opacity-100', 'translate-y-0');
+                }
+            }, 300);
+        }
+
+        function closePanels() {
+            // Hide overlay
+            panelOverlay.classList.remove('opacity-100', 'pointer-events-auto');
+            panelOverlay.classList.add('opacity-0', 'pointer-events-none');
+
+            // Slide out both panels
+            panelLeft.classList.remove('translate-x-0');
+            panelLeft.classList.add('-translate-x-[150%]');
+            
+            panelRight.classList.remove('translate-x-0');
+            panelRight.classList.add('translate-x-[150%]');
+
+            // Hide image panels smoothly when menu closes
+            imgPanelLeft.classList.remove('translate-x-0', 'opacity-100');
+            imgPanelLeft.classList.add('-translate-x-full', 'opacity-0');
+
+            imgPanelRight.classList.remove('translate-x-0', 'opacity-100');
+            imgPanelRight.classList.add('translate-x-full', 'opacity-0');
+
+            // Reset headers
+            document.querySelectorAll('.panel-header-left, .panel-header-right').forEach(el => {
+                el.classList.remove('opacity-100', 'translate-y-0');
+                el.classList.add('opacity-0', 'translate-y-6');
+            });
+
+            // Reset images back to hidden state after panel is out of view
+            setTimeout(() => {
+                document.querySelectorAll('.panel-img').forEach(img => {
+                    img.classList.remove('opacity-100', 'scale-100');
+                    img.classList.add('opacity-0', 'scale-105');
+                });
+            }, 700);
+        }
+
+        // Bind main desktop menu buttons
+        const btnWander = document.getElementById('btn-wander');
+        const btnUnwind = document.getElementById('btn-unwind');
+        const btnOrigin = document.getElementById('btn-origin');
+        const btnPlan = document.getElementById('btn-plan');
+
+        if(btnWander) btnWander.addEventListener('click', () => openPanel('wander'));
+        if(btnUnwind) btnUnwind.addEventListener('click', () => openPanel('unwind'));
+        if(btnOrigin) btnOrigin.addEventListener('click', () => openPanel('origin'));
+        if(btnPlan) btnPlan.addEventListener('click', () => openPanel('plan'));
+
+        // Bind closing actions
+        document.querySelectorAll('.close-panel').forEach(btn => btn.addEventListener('click', closePanels));
+        panelOverlay.addEventListener('click', closePanels);
+
+        // --- Better Hover UX for Image Panels ---
+        document.querySelectorAll('.panel-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const targetId = item.getAttribute('data-target');
+                const targetImg = document.getElementById(targetId);
+                
+                const isLeft = item.closest('#panel-left') !== null;
+                const activeImgPanel = isLeft ? imgPanelLeft : imgPanelRight;
+                const directionClass = isLeft ? '-translate-x-full' : 'translate-x-full';
+
+                // Slide out the drawer
+                activeImgPanel.classList.remove(directionClass, 'opacity-0');
+                activeImgPanel.classList.add('translate-x-0', 'opacity-100');
+
+                // Hide all images
+                activeImgPanel.querySelectorAll('.panel-img').forEach(img => {
+                    img.classList.remove('opacity-100', 'scale-100');
+                    img.classList.add('opacity-0', 'scale-105');
+                });
+
+                // Show targeted image
+                if (targetImg) {
+                    targetImg.classList.remove('opacity-0', 'scale-105');
+                    targetImg.classList.add('opacity-100', 'scale-100');
+                }
+            });
+        });
+
+        // Hide image drawer ONLY when mouse leaves the navigation group container
+        document.querySelectorAll('.menu-group').forEach(navGroup => {
+            navGroup.addEventListener('mouseleave', () => {
+                const isLeft = navGroup.closest('#panel-left') !== null;
+                const activeImgPanel = isLeft ? imgPanelLeft : imgPanelRight;
+                const directionClass = isLeft ? '-translate-x-full' : 'translate-x-full';
+
+                // Slide the image drawer back in
+                activeImgPanel.classList.remove('translate-x-0', 'opacity-100');
+                activeImgPanel.classList.add(directionClass, 'opacity-0');
+            });
+        });
+
+        // Scroll Reveal Observer
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -50px 0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        requestAnimationFrame(() => {
+                            entry.target.classList.add('is-visible');
+                        });
+                        obs.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.scroll-reveal').forEach((el) => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
